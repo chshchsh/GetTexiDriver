@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GetTexiDriver</string>
+    <string name="todo">TODO</string>
+    <string name="user_name">user Name</string>
+    <string name="password">password</string>
+    <string name="user_name1">user name</string>
+    <string name="id_number">id number</string>
+    <string name="phone_number">phone number</string>
+    <string name="email_adress">email adress</string>
+    <string name="credit_number">credit number</string>
 </resources>

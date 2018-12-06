@@ -12,7 +12,7 @@ public interface IDB_Backend {
     public List<Ride> finishedRides();
     public List<Ride> specificDriverRides(Driver driver);
     public List<Ride> availableRidesOnCity(String city);
-    public List<Ride> availableRidesfromDriver(Driver driver);
+    public List<Ride> availableRidesforDriver(Driver driver);
     public List<Ride> dateRides(Date date);
     public List<String> DriversUserName();
     public List<Ride> paymentRides();

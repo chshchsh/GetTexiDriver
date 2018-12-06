@@ -47,7 +47,7 @@ public class Ride {
         if(email.contains("@"))
          this.email = email;
         else
-            throw new Exception("the email mast contain @");
+            throw new Exception("the email must contains @");
     }
 
     public Location getStartLocation() {
@@ -66,7 +66,7 @@ public class Ride {
         if (phone.length() == 10 || phone.length() == 9)
             this.phone = phone;
         else
-            throw new Exception("the phone must contains only numbers");
+            throw new Exception("the length of the phone number is not make sense");
     }
 
     public Date getStartDrive() {
