@@ -2,6 +2,8 @@ package com.jct.bd.gettexidriver.model.entities;
 
 import android.location.Location;
 
+import com.google.firebase.database.Exclude;
+
 import java.sql.Date;
 
 public class Ride {
@@ -38,7 +40,6 @@ public class Ride {
         this.phone = "";
     }
 
-    //@Exclude
     public String getEmail() {
         return email;
     }
@@ -113,7 +114,7 @@ public class Ride {
     public String getId() {
         return id;
     }
-
+    @Exclude
     public void setId(String id) throws Exception {
         if (IDCheck(id))
         this.id = id;

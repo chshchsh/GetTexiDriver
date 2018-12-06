@@ -1,18 +1,22 @@
 package com.jct.bd.gettexidriver.model.entities;
 
+import com.google.firebase.database.Exclude;
+
 public class Driver {
     private String fullName;
     private String id;
     private String phoneNumber;
     private String email;
     private String creditCard;
+    private String password;
 
-    public Driver(String fullName, String id, String phoneNumber, String email, String creditCard) {
+    public Driver(String fullName, String id, String phoneNumber, String email, String creditCard,String password) {
         this.fullName = fullName;
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.creditCard = creditCard;
+        this.password = password;
     }
     public Driver(){
         this.fullName = "";
@@ -20,6 +24,8 @@ public class Driver {
         this.phoneNumber = "";
         this.email = "";
         this.creditCard = "";
+        this.password = "";
+
     }
     public String getFullName() {
         return fullName;
@@ -32,7 +38,7 @@ public class Driver {
     public String getId() {
         return id;
     }
-
+    @Exclude
     public void setId(String id) throws Exception {
             if (IDCheck(id))
                 this.id = id;
@@ -95,5 +101,16 @@ public class Driver {
 
     public void setCreditCard(String creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) throws Exception {
+        if(password.length()>=6)
+        this.password = password;
+        else
+            throw new Exception("the password must be longer then five letters");
     }
 }
