@@ -40,14 +40,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         findViews();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(auth.getCurrentUser()!=null) {
-            Toast.makeText(getApplicationContext(), "this username on use, please choose new username!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void findViews(){
         login = findViewById(R.id.textView3);
         userName = (EditText) findViewById(R.id.UserName);

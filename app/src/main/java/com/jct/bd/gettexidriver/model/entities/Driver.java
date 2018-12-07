@@ -34,11 +34,11 @@ public class Driver {
     public void setFullName(String lastName) {
         this.fullName = lastName;
     }
-
+    @Exclude
     public String getId() {
         return id;
     }
-    @Exclude
+
     public void setId(String id) throws Exception {
             if (IDCheck(id))
                 this.id = id;

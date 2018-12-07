@@ -9,4 +9,6 @@
     <string name="email_adress">email adress</string>
     <string name="credit_number">credit number</string>
     <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="have_you_account_login_her">have you account? login her!</string>
 </resources>

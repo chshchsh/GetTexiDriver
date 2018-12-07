@@ -110,11 +110,11 @@ public class Ride {
     public void setDrive(TypeOfDrive drive) {
         this.drive = drive;
     }
-
+    @Exclude
     public String getId() {
         return id;
     }
-    @Exclude
+
     public void setId(String id) throws Exception {
         if (IDCheck(id))
         this.id = id;
