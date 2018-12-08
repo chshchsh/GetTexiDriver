@@ -1,6 +1,8 @@
 package com.jct.bd.gettexidriver.controller;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +33,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView register;
     EditText userName,password;
     CardView login;
+    public static final String mypreference = "mypref";
+    public static final String Name = "person_name";
+    public static final String passwordS = "phone_no";
+    SharedPreferences sharedpreferences;
     private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +45,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViews();
     }
     public void findViews(){
-        userName = (EditText) findViewById(R.id.userName);
-        password = (EditText) findViewById(R.id.password);
         login = (CardView) findViewById(R.id.Login);
         login.setOnClickListener(this);
         login.setEnabled(false);
+        userName = (EditText) findViewById(R.id.userName);
+        password = (EditText) findViewById(R.id.password);
+        Fetch();
         userName.addTextChangedListener(AddTextWatcer);
         password.addTextChangedListener(AddTextWatcer);
         register = findViewById(R.id.textView2);
@@ -94,6 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         Toast.makeText(LoginActivity.this, "the email or the password is not correct!", Toast.LENGTH_LONG).show();
                                     } else {
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        Store();
                                         finish();
                                     }
                                 }
@@ -109,6 +117,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.sample_anim);
             login.startAnimation(animation);
             loginUser();
+        }
+    }
+    public void Store() {
+        if (!userName.getText().toString().isEmpty() &&  !password.getText().toString().isEmpty()) {
+            String n = userName.getText().toString();
+            String p = password.getText().toString();
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Name, n);
+            editor.putString(passwordS, p);
+            editor.commit();
+            Toast.makeText(getApplicationContext(), "Data Stored Successfuly!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Please Fill all the Fields!!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void Fetch() {
+        sharedpreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
+
+        if (sharedpreferences.contains(Name)&&sharedpreferences.contains(passwordS)) {
+            userName.setText(sharedpreferences.getString(Name, ""));
+            password.setText(sharedpreferences.getString(passwordS,""));
+            login.setEnabled(true);
+            Toast.makeText(getApplicationContext(), "Data Displayed Successfuly!", Toast.LENGTH_SHORT).show();
+        }else{
+            return;
         }
     }
 }
