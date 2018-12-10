@@ -2,6 +2,8 @@ package com.jct.bd.gettexidriver.model.entities;
 
 import com.google.firebase.database.Exclude;
 
+import java.util.List;
+
 public class Driver {
     private String fullName;
     private String id;
@@ -9,6 +11,7 @@ public class Driver {
     private String email;
     private String creditCard;
     private String password;
+    static private List<Ride> driverRides;
 
     public Driver(String fullName, String id, String phoneNumber, String email, String creditCard,String password) {
         this.fullName = fullName;

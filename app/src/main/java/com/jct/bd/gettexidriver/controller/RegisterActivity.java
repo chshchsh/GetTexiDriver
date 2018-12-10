@@ -26,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
@@ -108,27 +109,32 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             driver.setPassword(password.getText().toString());
             auth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()) {
-                                FirebaseDatabase.getInstance().getReference("Drivers")
-                                        .child(driver.getId())
-                                        .setValue(driver).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()) {
-                                            Toast.makeText(RegisterActivity.this, "load to firebase,onCoplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                            FireBase_DB_manager backend = new FireBase_DB_manager();
+                                            backend.addDriver(driver, new FireBase_DB_manager.Action<String>() {
+                                                @Override
+                                                public void onSuccess(String obj) {
+                                                    Toast.makeText(getBaseContext(), "insert id " + obj, Toast.LENGTH_LONG).show();
+                                                }
+
+                                                @Override
+                                                public void onFailure(Exception exception) {
+                                                    Toast.makeText(getBaseContext(), "Error \n" + exception.getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+
+                                                public void onProgress(String status, double percent) {
+                                                    if (percent != 100)
+                                                        register.setEnabled(false);
+                                                }
+                                            });
                                             startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                                         }else {
                                             Toast.makeText(RegisterActivity.this, "failure to load firebase", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
-                            }else {
-                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
         } catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
