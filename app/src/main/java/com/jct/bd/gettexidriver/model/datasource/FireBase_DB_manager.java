@@ -96,11 +96,11 @@ public class FireBase_DB_manager implements IDB_Backend {
             return  cityRides;
     }
     @Override
-    public List<Ride> availableRidesforDriver(Driver driver,) {
+    public List<Ride> availableRidesforDriver(Driver driver) {
             List<Ride> driverRides = availableRides();
             List<Ride> toRemove = new ArrayList<Ride>();
             for (Ride ride : driverRides) {
-                if (ride.getStartLocation().distanceTo(driver.getLocation???()) >= distance)
+                if (ride.getStartLocation().distanceTo(driver.getCurrentLocation())/1000 >= 25)
                 toRemove.add(ride);
             }
             driverRides.removeAll(toRemove);

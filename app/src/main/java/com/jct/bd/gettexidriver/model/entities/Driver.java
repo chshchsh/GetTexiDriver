@@ -1,5 +1,7 @@
 package com.jct.bd.gettexidriver.model.entities;
 
+import android.location.Location;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.List;
@@ -11,6 +13,7 @@ public class Driver {
     private String email;
     private String creditCard;
     private String password;
+    private Location currentLocation;
     private List<Ride> driverRides;
 
     public Driver(String fullName, String id, String phoneNumber, String email, String creditCard,String password) {
@@ -122,5 +125,12 @@ public class Driver {
 
     public void setDriverRides(List<Ride> driverRides) {
         this.driverRides = driverRides;
+    }
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
     }
 }
