@@ -1,34 +1,33 @@
 package com.jct.bd.gettexidriver.model.datasource;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jct.bd.gettexidriver.controller.LoginActivity;
-import com.jct.bd.gettexidriver.controller.RegisterActivity;
 import com.jct.bd.gettexidriver.model.backend.IDB_Backend;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
-import com.jct.bd.gettexidriver.model.entities.TypeOfDrive;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class FireBase_DB_manager implements IDB_Backend {
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference DriveRef = database.getReference("Driver");
-    FirebaseDatabase database1 = FirebaseDatabase.getInstance();
-    DatabaseReference RideRef = database1.getReference("Ride");
+    static List<Ride> rides;
+    static List<Driver> drivers;
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    static DatabaseReference DriveRef = database.getReference("Driver");
+    static FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+    static DatabaseReference RideRef = database1.getReference("Ride");
+    private static ChildEventListener rideRefChildEventListener;
+    public interface NotifyDataChange<T> {
+        void OnDataChanged(T obj);
+        void onFailure(Exception exception);
+    }
     public interface Action<T> {
         void onSuccess(String obj);
 
@@ -36,13 +35,6 @@ public class FireBase_DB_manager implements IDB_Backend {
 
         void onProgress(String status, double percent);
     }
-
-    public interface NotifyDataChange<T> {
-        void OnDataChanged(T obj);
-
-        void onFailure(Exception exception);
-    }
-
     @Override
     public void addDriver(final Driver driver,final Action<String> action) {
         String key = driver.getId();
@@ -60,46 +52,31 @@ public class FireBase_DB_manager implements IDB_Backend {
             }
         });
     }
-
     @Override
     public List<Ride> availableRides() {
-        List<Ride> rides = new ArrayList<Ride>();
-        final List<Ride> toRemove = new ArrayList<Ride>();
+        rides.clear();
         RideRef.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
-                rides = dataSnapshot.getValue(List.class);
+                rides = (List<Ride>) RideRef.orderByChild("drive").equalTo("AVAILABLE");
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                for (Ride ride : rides) {
-                    if (ride.getDrive() != TypeOfDrive.AVAILABLE)
-                        toRemove.add(ride);
-                }
-                rides.removeAll(toRemove);
-
             }
         });
         return rides;
     }
     @Override
     public List<Ride> finishedRides() {
-            final List<Ride> rides;
+            rides.clear();
             List<Ride> toRemove = new ArrayList<Ride>();
             RideRef.addValueEventListener(new ValueEventListener(){
                 public void onDataChange(DataSnapshot dataSnapshot){
-                    rides = dataSnapshot.getValue(List.class);
+                    rides = (List<Ride>) RideRef.orderByChild("drive").equalTo("FINISH");
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
-            for (Ride ride:rides) {
-                if(ride.getDrive()!= TypeOfDrive.FINISH)
-                    toRemove.add(ride);
-            }
-            rides.removeAll(toRemove);
             return rides;
     }
 
@@ -107,7 +84,6 @@ public class FireBase_DB_manager implements IDB_Backend {
     public List<Ride> specificDriverRides(Driver driver) {
             return driver.getDriverRides();
     }
-
     @Override
     public List<Ride> availableRidesOnCity(String city) {
             List<Ride> cityRides = availableRides();
@@ -117,10 +93,10 @@ public class FireBase_DB_manager implements IDB_Backend {
                 toRemove.add(ride);
             }
             cityRides.removeAll(toRemove);
-            return  cityRides;    }
-
+            return  cityRides;
+    }
     @Override
-    public List<Ride> availableRidesforDriver(Driver driver) {
+    public List<Ride> availableRidesforDriver(Driver driver,) {
             List<Ride> driverRides = availableRides();
             List<Ride> toRemove = new ArrayList<Ride>();
             for (Ride ride : driverRides) {
@@ -128,47 +104,48 @@ public class FireBase_DB_manager implements IDB_Backend {
                 toRemove.add(ride);
             }
             driverRides.removeAll(toRemove);
-            return driverRides;    }
-
+            return driverRides;
+    }
     @Override
     public List<Ride> dateRides(Date date) {
             List<Ride> driverRides = availableRides();
             List<Ride> toRemove = new ArrayList<Ride>();
             for (Ride ride : driverRides) {
-                if (ride.getStartDrive() != date)
+                if (ride.getStartDrive != date)
                     toRemove.add(ride);
             }
             driverRides.removeAll(toRemove);
-            return driverRides;    }
-
+            return driverRides;
+    }
     @Override
     public List<String> DriversUserName() {
-            final List<Driver> drivers;
-            List<String> usernames = new ArrayList<String>();
+            drivers.clear();
+            final List<String> usernames = new ArrayList<String>();
             DriveRef.addValueEventListener(new ValueEventListener() {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     drivers = dataSnapshot.getValue(List.class);
+                    for (Driver driver:drivers) {
+                        String fullName = driver.getFullName();
+                        usernames.add(fullName);
+                    }
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
-            for (Driver driver:drivers) {
-                String fullName = driver.getFullName();
-                usernames.add(fullName);
-            }
-            return usernames;    }
-
+        return usernames;
+    }
     @Override
-    public List<Ride> paymentRides() {
+    public List<Ride> paymentRides(double payment) {
             List<Ride> paymentRides = availableRides();
             List<Ride> toRemove = new ArrayList<Ride>();
             for (Ride ride : paymentRides) {
-                double ridepay = ride.getStartLocation().distanceTo(ride.getEndLocation())*ride.
+                double ridepay = (ride.getStartLocation().distanceTo(ride.getEndLocation())/1000)*5;
                 if (ridepay != payment)
                     toRemove.add(ride);
             }
             paymentRides.removeAll(toRemove);
-            return paymentRides;    }
+            return paymentRides;
+    }
 }

@@ -11,7 +11,7 @@ public class Driver {
     private String email;
     private String creditCard;
     private String password;
-    static private List<Ride> driverRides;
+    private List<Ride> driverRides;
 
     public Driver(String fullName, String id, String phoneNumber, String email, String creditCard,String password) {
         this.fullName = fullName;
@@ -115,5 +115,12 @@ public class Driver {
         this.password = password;
         else
             throw new Exception("the password must be longer then five letters");
+    }
+    public List<Ride> getDriverRides() {
+        return driverRides;
+    }
+
+    public void setDriverRides(List<Ride> driverRides) {
+        this.driverRides = driverRides;
     }
 }
