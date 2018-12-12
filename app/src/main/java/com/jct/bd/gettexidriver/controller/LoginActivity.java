@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -15,7 +15,6 @@ import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -89,27 +88,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }
     };
-    public void loginUser(){
-                final String email = userName.getText().toString();
-                final String Ipassword = password.getText().toString();
-                try {
-                    auth.signInWithEmailAndPassword(email, Ipassword)
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(LoginActivity.this, "the email or the password is not correct!", Toast.LENGTH_LONG).show();
-                                    } else {
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        Store();
-                                        finish();
-                                    }
-                                }
-                            });
-                } catch (Exception e) {
-                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
+    public void loginUser() {
+        final String email = userName.getText().toString();
+        final String Ipassword = password.getText().toString();
+        try {
+            auth.signInWithEmailAndPassword(email, Ipassword)
+                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "the email or the password is not correct!", Toast.LENGTH_LONG).show();
+                            } else {
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                Store();
+                                finish();
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     public void onClick(View v) {
         if(v == login)

@@ -89,7 +89,7 @@ public class FireBase_DB_manager implements IDB_Backend {
             List<Ride> cityRides = availableRides();
             List<Ride> toRemove = new ArrayList<Ride>();
             for (Ride ride:cityRides) {
-                if(ride.getEndLocation().???!=city)
+                if(ride.getEndLocation()!!==city)
                 toRemove.add(ride);
             }
             cityRides.removeAll(toRemove);
