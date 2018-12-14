@@ -1,6 +1,10 @@
 package com.jct.bd.gettexidriver.model.datasource;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -9,6 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jct.bd.gettexidriver.controller.MyService;
 import com.jct.bd.gettexidriver.model.backend.IDB_Backend;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
@@ -17,13 +22,17 @@ import java.util.Date;
 import java.util.List;
 
 public class FireBase_DB_manager implements IDB_Backend {
+    public Context context;
+
+    public FireBase_DB_manager(Context context) {
+        this.context = context;
+        context.startService(new Intent(context, MyService.class));
+    }
     static List<Ride> rides;
     static List<Driver> drivers;
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference DriveRef = database.getReference("Driver");
-    static FirebaseDatabase database1 = FirebaseDatabase.getInstance();
-    static DatabaseReference RideRef = database1.getReference("Ride");
-    private static ChildEventListener rideRefChildEventListener;
+    static DatabaseReference RideRef = database.getReference("Ride");
     public interface NotifyDataChange<T> {
         void OnDataChanged(T obj);
         void onFailure(Exception exception);
@@ -89,7 +98,7 @@ public class FireBase_DB_manager implements IDB_Backend {
             List<Ride> cityRides = availableRides();
             List<Ride> toRemove = new ArrayList<Ride>();
             for (Ride ride:cityRides) {
-                if(ride.getEndLocation()!!==city)
+                if(ride.getEndLocation()!=!=city)
                 toRemove.add(ride);
             }
             cityRides.removeAll(toRemove);

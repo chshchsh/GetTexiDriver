@@ -16,6 +16,7 @@ public class Ride {
     private Location startLocation;
     private Location endLocation;
     private String phone;
+    private String driverName;
 
 
     public Ride(TypeOfDrive drive, String id, String email, String name, Date startDrive, Date endDrive, Location startLocation, Location endLocation, String phone) {
@@ -148,4 +149,12 @@ public class Ride {
                 + originalString;
         return paddedString;
     }
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
 }

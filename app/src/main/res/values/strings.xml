@@ -11,4 +11,6 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="have_you_account_login_her">have you account? login her!</string>
+    <string name="NotTitle">you have new message!</string>
+    <string name="NotContent">hello you have new ride, please take it!</string>
 </resources>
