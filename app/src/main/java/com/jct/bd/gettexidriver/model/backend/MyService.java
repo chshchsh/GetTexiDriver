@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.model.backend;
 
 import android.app.Service;
 import android.content.Intent;

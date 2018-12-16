@@ -17,4 +17,8 @@ public interface IDB_Backend {
     public List<Ride> dateRides(Date date);
     public List<String> DriversUserName();
     public List<Ride> paymentRides(double payment);
+    public List<Ride> getRideList();
+    public List<Driver> getDriverList();
+    public void RideBeProgress(Ride ride);
+    public void RideBeFinish(Ride ride);
 }

@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.model.backend;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.controller.MainActivity;
 
 public class MyReceiver extends BroadcastReceiver {
     @Override

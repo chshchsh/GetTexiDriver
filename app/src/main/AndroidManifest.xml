@@ -26,10 +26,10 @@ package="com.jct.bd.gettexidriver">
     </activity>
     <activity android:name=".controller.MainActivity" />
     <activity android:name=".controller.RegisterActivity" />
-    <receiver android:name=".controller.MyReceiver">
+    <receiver android:name=".model.backend.MyReceiver">
     </receiver>
     <service
-        android:name=".controller.MyService"
+        android:name=".model.backend.MyService"
         android:enabled="true"
         android:exported="true"></service>
 </application>
