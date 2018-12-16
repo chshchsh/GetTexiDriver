@@ -3,6 +3,7 @@ package com.jct.bd.gettexidriver.model.datasource;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,6 +16,8 @@ import com.jct.bd.gettexidriver.model.backend.MyService;
 import com.jct.bd.gettexidriver.model.backend.IDB_Backend;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
+import com.jct.bd.gettexidriver.model.entities.TypeOfDrive;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -154,5 +157,31 @@ public class FireBase_DB_manager implements IDB_Backend {
             }
             paymentRides.removeAll(toRemove);
             return paymentRides;
+    }
+
+    @Override
+    public List<Ride> getRideList() {
+        return rides;
+    }
+
+    @Override
+    public List<Driver> getDriverList() {
+        return drivers;
+    }
+
+    @Override
+    public void RideBeProgress(Ride ride) throws Exception {
+            if(ride.getDrive()== TypeOfDrive.AVAILABLE)
+                ride.setDrive(TypeOfDrive.PROGRESS);
+            else
+            throw new Exception("the drive not available!");
+    }
+
+    @Override
+    public void RideBeFinish(Ride ride) throws Exception {
+        if(ride.getDrive()== TypeOfDrive.PROGRESS)
+            ride.setDrive(TypeOfDrive.FINISH);
+        else
+            throw new Exception("the drive isn't on progress yet!");
     }
 }

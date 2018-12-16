@@ -19,6 +19,6 @@ public interface IDB_Backend {
     public List<Ride> paymentRides(double payment);
     public List<Ride> getRideList();
     public List<Driver> getDriverList();
-    public void RideBeProgress(Ride ride);
-    public void RideBeFinish(Ride ride);
+    public void RideBeProgress(Ride ride) throws Exception;
+    public void RideBeFinish(Ride ride) throws Exception;
 }

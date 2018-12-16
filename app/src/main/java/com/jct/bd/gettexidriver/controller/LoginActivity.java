@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     CardView login;
     public static final String mypreference = "mypref";
     public static final String Name = "person_name";
-    public static final String passwordS = "phone_no";
+    public static final String passwordS = "password";
     SharedPreferences sharedpreferences;
     private FirebaseAuth auth;
     @Override
@@ -133,7 +133,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     public void Fetch() {
         sharedpreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
-
         if (sharedpreferences.contains(Name)&&sharedpreferences.contains(passwordS)) {
             userName.setText(sharedpreferences.getString(Name, ""));
             password.setText(sharedpreferences.getString(passwordS,""));
