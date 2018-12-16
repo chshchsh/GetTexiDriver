@@ -4,6 +4,13 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.jct.bd.gettexidriver.controller.MainActivity;
+import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
+import com.jct.bd.gettexidriver.model.entities.Ride;
+
+import java.util.List;
 
 public class MyService extends Service {
     boolean isThreadOn = false;
@@ -21,8 +28,8 @@ public class MyService extends Service {
         if(!isThreadOn)
         {
             isThreadOn = true;
-            SumCalc sumCalc = new SumCalc();
-            sumCalc.start();
+            Listener listener = new Listener();
+            listener.start();
         }
         return START_STICKY;
     }
@@ -32,12 +39,28 @@ public class MyService extends Service {
         Log.d(TAG," onDestroy");
 
     }
-    public class SumCalc extends Thread {
+    public class Listener extends Thread {
 
         public void run() {
+            try {
+                sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            FireBase_DB_manager.notifyToRideList(new FireBase_DB_manager.NotifyDataChange<List<Ride>>() {
+                @Override
+                public void OnDataChanged(List<Ride> obj) {
+                    Intent intent = new Intent(MyService.this,MainActivity.class);
+                    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    sendBroadcast(intent);
+                }
 
+                @Override
+                public void onFailure(Exception exception) {
+                    Toast.makeText(getBaseContext(), "error to get rides list\n" + exception.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
             isThreadOn = false;
-
         }
     }
     @Override

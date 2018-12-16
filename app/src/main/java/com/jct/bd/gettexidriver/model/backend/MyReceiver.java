@@ -16,8 +16,8 @@ public class MyReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
         NotificationManager notificationManager;
-        final PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent contentIntent = PendingIntent.getActivity(context, 0,intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         final NotificationCompat.Builder b = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
