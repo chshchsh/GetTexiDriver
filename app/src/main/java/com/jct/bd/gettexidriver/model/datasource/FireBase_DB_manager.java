@@ -25,13 +25,15 @@ import java.util.List;
 
 public class FireBase_DB_manager implements IDB_Backend {
     public Context context;
+    public static List<Ride> rides ;
 
     public FireBase_DB_manager(Context context) {
         this.context = context;
-        context.startService(new Intent(context, MyService.class));
+        this.rides = new ArrayList<>();
+        this.drivers = new ArrayList<>();
     }
-    static List<Ride> rides = new ArrayList<>();
-    static List<Driver> drivers = new ArrayList<>();
+
+    public List<Driver> drivers ;
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference DriveRef = database.getReference("Driver");
     static DatabaseReference RideRef = database.getReference("Ride");
@@ -225,6 +227,13 @@ public class FireBase_DB_manager implements IDB_Backend {
             RideRef.addChildEventListener(rideRefChildEventListener);
         }
     }
+    public static void stopNotifyToRidesList() {
+        if (rideRefChildEventListener != null) {
+            RideRef.removeEventListener(rideRefChildEventListener);
+            rideRefChildEventListener = null;
+        }
+    }
+
     private static ChildEventListener driverRefChildEventListener;
     public void notifyToDriverList(final NotifyDataChange<List<Driver>> notifyDataChange) {
         if (notifyDataChange != null) {

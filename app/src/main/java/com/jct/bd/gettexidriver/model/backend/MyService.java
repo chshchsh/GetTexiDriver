@@ -36,8 +36,7 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG," onDestroy");
-
+        FireBase_DB_manager.stopNotifyToRidesList();
     }
     public class Listener extends Thread {
 

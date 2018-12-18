@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password.addTextChangedListener(AddTextWatcer);
         register = findViewById(R.id.textView2);
         auth = FirebaseAuth.getInstance();
-        String text = "Dont have you account? register her!";
+        String text = getString(R.string.registerbutton);
         SpannableString ss = new SpannableString(text);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -126,9 +126,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.putString(Name, n);
             editor.putString(passwordS, p);
             editor.commit();
-            Toast.makeText(getApplicationContext(), "Data Stored Successfuly!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.store, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getApplicationContext(), "Please Fill all the Fields!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.empty, Toast.LENGTH_SHORT).show();
         }
     }
     public void Fetch() {
@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userName.setText(sharedpreferences.getString(Name, ""));
             password.setText(sharedpreferences.getString(passwordS,""));
             login.setEnabled(true);
-            Toast.makeText(getApplicationContext(), "Data Displayed Successfuly!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.fetch, Toast.LENGTH_SHORT).show();
         }else{
             return;
         }

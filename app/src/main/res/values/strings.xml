@@ -13,4 +13,8 @@
     <string name="have_you_account_login_her">have you account? login her!</string>
     <string name="NotTitle">you have new message!</string>
     <string name="NotContent">hello you have new ride, please take it!</string>
+    <string name="registerbutton">Dont have you account? register her!</string>
+    <string name="empty">Please Fill all the Fields!!</string>
+    <string name="store">Data Stored Successfuly!</string>
+    <string name="fetch">Data Displayed Successfuly!</string>
 </resources>
