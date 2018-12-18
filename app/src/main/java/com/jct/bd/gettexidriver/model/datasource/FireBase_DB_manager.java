@@ -175,7 +175,10 @@ public class FireBase_DB_manager implements IDB_Backend {
     public List<Ride> getRideList() {
         RideRef.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
-                rides = dataSnapshot.getValue(List.class);
+                for (DataSnapshot rideSnapshot : dataSnapshot.getChildren()) {
+                    Ride ride = rideSnapshot.getValue(Ride.class);
+                    rides.add(ride);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -186,9 +189,12 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     @Override
     public List<Driver> getDriverList() {
-        DriveRef.addValueEventListener(new ValueEventListener() {
+        RideRef.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
-                drivers = dataSnapshot.getValue(List.class);
+                for (DataSnapshot driverSnapshot : dataSnapshot.getChildren()) {
+                    Driver driver = driverSnapshot.getValue(Driver.class);
+                    drivers.add(driver);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
