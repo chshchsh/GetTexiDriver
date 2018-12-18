@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()) {
-                                            FireBase_DB_manager backend = new FireBase_DB_manager();
+                                            FireBase_DB_manager backend = new FireBase_DB_manager(getApplicationContext());
                                             backend.addDriver(driver, new FireBase_DB_manager.Action<String>() {
                                                 @Override
                                                 public void onSuccess(String obj) {

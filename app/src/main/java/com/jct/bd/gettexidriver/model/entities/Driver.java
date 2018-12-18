@@ -3,8 +3,8 @@ package com.jct.bd.gettexidriver.model.entities;
 import android.location.Location;
 
 import com.google.firebase.database.Exclude;
+import com.jct.bd.gettexidriver.model.backend.CurentLocation;
 
-import java.util.List;
 
 public class Driver {
     private String fullName;
@@ -14,7 +14,6 @@ public class Driver {
     private String creditCard;
     private String password;
     private Location currentLocation;
-    private List<Ride> driverRides;
 
     public Driver(String fullName, String id, String phoneNumber, String email, String creditCard,String password) {
         this.fullName = fullName;
@@ -31,7 +30,6 @@ public class Driver {
         this.email = "";
         this.creditCard = "";
         this.password = "";
-
     }
     public String getFullName() {
         return fullName;
@@ -119,13 +117,7 @@ public class Driver {
         else
             throw new Exception("the password must be longer then five letters");
     }
-    public List<Ride> getDriverRides() {
-        return driverRides;
-    }
 
-    public void setDriverRides(List<Ride> driverRides) {
-        this.driverRides = driverRides;
-    }
     public Location getCurrentLocation() {
         return currentLocation;
     }

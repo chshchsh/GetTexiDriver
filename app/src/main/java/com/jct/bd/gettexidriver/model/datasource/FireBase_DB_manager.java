@@ -2,6 +2,9 @@ package com.jct.bd.gettexidriver.model.datasource;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -13,22 +16,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jct.bd.gettexidriver.controller.MainActivity;
 import com.jct.bd.gettexidriver.model.backend.MyService;
 import com.jct.bd.gettexidriver.model.backend.IDB_Backend;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 import com.jct.bd.gettexidriver.model.entities.TypeOfDrive;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FireBase_DB_manager implements IDB_Backend {
     public Context context;
     public static List<Ride> rides ;
-
     public FireBase_DB_manager(Context context) {
         this.context = context;
+        context.startService(new Intent(context,MyService.class));
         this.rides = new ArrayList<>();
         this.drivers = new ArrayList<>();
     }
@@ -83,8 +89,7 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     @Override
     public List<Ride> finishedRides() {
-        List<Ride> rides = new ArrayList<>();
-        rides = getRideList();
+        List<Ride> rides = getRideList();
         for (Ride ride : rides){
             if(ride.getDrive()!=TypeOfDrive.FINISH)
                 rides.remove(ride);
@@ -94,7 +99,12 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     @Override
     public List<Ride> specificDriverRides(Driver driver) {
-        return driver.getDriverRides();
+        List<Ride> rides = getRideList();
+        for (Ride ride : rides){
+            if(ride.getDriverName()!= driver.getFullName())
+                rides.remove(ride);
+        }
+        return rides;
     }
 
     @Override
@@ -102,7 +112,7 @@ public class FireBase_DB_manager implements IDB_Backend {
         List<Ride> cityRides = availableRides();
         List<Ride> toRemove = new ArrayList<Ride>();
         for (Ride ride : cityRides) {
-            if (ride.getEndLocation() !=!=city)
+            if (getPlace(ride.getEndLocation())!= city)
             toRemove.add(ride);
         }
         cityRides.removeAll(toRemove);
@@ -113,7 +123,7 @@ public class FireBase_DB_manager implements IDB_Backend {
     public List<Ride> availableRidesforDriver(Driver driver) {
         List<Ride> driverRides = availableRides();
         for (Ride ride : driverRides) {
-            if (ride.getStartLocation().distanceTo(driver.getCurrentLocation()) / 1000 >= 25)
+            if (ride.getStartLocation().distanceTo(driver.getCurrentLocation()) / 1000 >= 5)
                 driverRides.remove(ride);
         }
         return driverRides;
@@ -124,7 +134,7 @@ public class FireBase_DB_manager implements IDB_Backend {
         List<Ride> driverRides = availableRides();
         List<Ride> toRemove = new ArrayList<Ride>();
         for (Ride ride : driverRides) {
-            if (ride.getStartDrive != date)
+            if (ride.getStartDrive() != date)
                 toRemove.add(ride);
         }
         driverRides.removeAll(toRemove);
@@ -163,11 +173,27 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     @Override
     public List<Ride> getRideList() {
+        RideRef.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                rides = dataSnapshot.getValue(List.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         return rides;
     }
 
     @Override
     public List<Driver> getDriverList() {
+        DriveRef.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                drivers = dataSnapshot.getValue(List.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         return drivers;
     }
 
@@ -274,5 +300,26 @@ public class FireBase_DB_manager implements IDB_Backend {
             };
             DriveRef.addChildEventListener(driverRefChildEventListener);
         }
+    }
+    //this func get location and convert it to name of location
+    public String getPlace(Location location) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+            if (addresses.size() > 0) {
+                String cityName = addresses.get(0).getAddressLine(0);
+                return cityName;
+            }
+
+            return "no place: \n (" + location.getLongitude() + " , " + location.getLatitude() + ")";
+        } catch (
+                IOException e)
+
+        {
+            e.printStackTrace();
+        }
+        return "IOException ...";
     }
 }
