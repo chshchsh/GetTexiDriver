@@ -26,14 +26,14 @@ public class firstFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_first, container, false);
         lv = (ListView) view.findViewById(R.id.lv);
-        rideArrayList = getModel();
+        rideArrayList = getRide();
         customAdapter = new CustomAdapter(this.getContext());
         lv.setAdapter(customAdapter);
         return view;
     }
-    private List<Ride> getModel(){
+    private List<Ride> getRide(){
         FireBase_DB_manager backend = FactoryBackend.getInstance(this.getContext());
-        List<Ride> list = backend.getRideList();
-        return list;
+        List<Ride> rides = backend.getRideList();
+        return rides;
     }
 }

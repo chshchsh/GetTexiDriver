@@ -6,7 +6,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,7 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jct.bd.gettexidriver.controller.MainActivity;
 import com.jct.bd.gettexidriver.model.backend.MyService;
 import com.jct.bd.gettexidriver.model.backend.IDB_Backend;
 import com.jct.bd.gettexidriver.model.entities.Driver;
@@ -31,19 +29,22 @@ import java.util.Locale;
 
 public class FireBase_DB_manager implements IDB_Backend {
     public Context context;
-    public static List<Ride> rides ;
+    public List<Ride> rides ;
+    public List<Driver> drivers ;
+
     public FireBase_DB_manager(Context context) {
         this.context = context;
         context.startService(new Intent(context,MyService.class));
         this.rides = new ArrayList<>();
         this.drivers = new ArrayList<>();
     }
-
-    public List<Driver> drivers ;
-    static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    static DatabaseReference DriveRef = database.getReference("Driver");
-    static DatabaseReference RideRef = database.getReference("Ride");
-
+    static DatabaseReference DriveRef ;
+    static DatabaseReference RideRef;
+    static {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DriveRef = database.getReference("Drivers");
+        RideRef = database.getReference("rides");
+    }
     public interface NotifyDataChange<T> {
         void OnDataChanged(T obj);
 
@@ -174,7 +175,9 @@ public class FireBase_DB_manager implements IDB_Backend {
     @Override
     public List<Ride> getRideList() {
         RideRef.addValueEventListener(new ValueEventListener() {
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                rides.clear();
                 for (DataSnapshot rideSnapshot : dataSnapshot.getChildren()) {
                     Ride ride = rideSnapshot.getValue(Ride.class);
                     rides.add(ride);
@@ -189,15 +192,19 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     @Override
     public List<Driver> getDriverList() {
-        RideRef.addValueEventListener(new ValueEventListener() {
+        DriveRef.addValueEventListener(new ValueEventListener() {
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot driverSnapshot : dataSnapshot.getChildren()) {
-                    Driver driver = driverSnapshot.getValue(Driver.class);
+                drivers.clear();
+                for (DataSnapshot rideSnapshot : dataSnapshot.getChildren()) {
+                    Driver driver = rideSnapshot.getValue(Driver.class);
                     drivers.add(driver);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
             }
         });
         return drivers;
@@ -219,7 +226,7 @@ public class FireBase_DB_manager implements IDB_Backend {
             throw new Exception("the drive isn't on progress yet!");
     }
     private static ChildEventListener rideRefChildEventListener;
-    public static void notifyToRideList(final NotifyDataChange<List<Ride>> notifyDataChange) {
+    public void notifyToRideList(final NotifyDataChange<List<Ride>> notifyDataChange) {
         if (notifyDataChange != null) {
             if (rideRefChildEventListener != null) {
                 notifyDataChange.onFailure(new Exception("first unNotify ride list"));

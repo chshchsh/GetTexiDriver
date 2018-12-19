@@ -36,7 +36,7 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        FireBase_DB_manager.stopNotifyToRidesList();
+        FactoryBackend.getInstance(getApplicationContext()).stopNotifyToRidesList();
     }
     public class Listener extends Thread {
 
@@ -46,7 +46,7 @@ public class MyService extends Service {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            FireBase_DB_manager.notifyToRideList(new FireBase_DB_manager.NotifyDataChange<List<Ride>>() {
+            FactoryBackend.getInstance(getApplicationContext()).notifyToRideList(new FireBase_DB_manager.NotifyDataChange<List<Ride>>() {
                 @Override
                 public void OnDataChanged(List<Ride> obj) {
                     Intent intent = new Intent(MyService.this,MainActivity.class);

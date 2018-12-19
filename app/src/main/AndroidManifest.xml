@@ -15,6 +15,9 @@ package="com.jct.bd.gettexidriver">
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Material">
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyBQIvMNsccUpeeKuBUeHjQzAeNVzftk77Y"/>
     <activity
         android:name=".controller.LoginActivity"
         android:label="@string/app_name">
@@ -31,6 +34,6 @@ package="com.jct.bd.gettexidriver">
     <service
         android:name=".model.backend.MyService"
         android:enabled="true"
-        android:exported="true"></service>
+        android:exported="true" />
 </application>
 </manifest>
