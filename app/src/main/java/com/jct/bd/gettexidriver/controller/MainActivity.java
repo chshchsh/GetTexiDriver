@@ -1,5 +1,6 @@
 package com.jct.bd.gettexidriver.controller;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.model.backend.MyService;
 
 public class MainActivity extends AppCompatActivity {
     Button firstFragment;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startService(new Intent(MainActivity.this, MyService.class));
 // get the reference of Button's
         firstFragment = (Button) findViewById(R.id.firstFragment);
 // perform setOnClickListener event on First Button

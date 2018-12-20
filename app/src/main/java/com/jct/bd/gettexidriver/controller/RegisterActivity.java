@@ -24,8 +24,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 
@@ -112,8 +112,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()) {
-                                            FireBase_DB_manager backend = new FireBase_DB_manager(getApplicationContext());
-                                            backend.addDriver(driver, new FireBase_DB_manager.Action<String>() {
+                                            FireBase_DB_manager backend = new FireBase_DB_manager();
+                                            backend.addDriver(driver, new Action<String>() {
                                                 @Override
                                                 public void onSuccess(String obj) {
                                                     Toast.makeText(getBaseContext(), "insert id " + obj, Toast.LENGTH_LONG).show();

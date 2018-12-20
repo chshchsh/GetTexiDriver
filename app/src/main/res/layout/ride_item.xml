@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
         <TextView
             android:id="@+id/distance"
@@ -15,14 +14,13 @@
             android:textColor="#000"
             android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/destination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:text="destination:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000" />
-
+        <TextView
+            android:id="@+id/destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:text="destination:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000" />
 </LinearLayout>

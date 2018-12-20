@@ -1,6 +1,6 @@
 package com.jct.bd.gettexidriver.model.backend;
 
-import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
+import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface IDB_Backend {
-    public void addDriver(Driver driver,final FireBase_DB_manager.Action<String> action);
+    public void addDriver(Driver driver,final Action<String> action);
     public List<Ride> availableRides();
     public List<Ride> finishedRides();
     public List<Ride> specificDriverRides(Driver driver);

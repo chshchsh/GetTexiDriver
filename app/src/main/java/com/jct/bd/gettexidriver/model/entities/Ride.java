@@ -33,7 +33,7 @@ public class Ride {
 
     public Ride() {
         this.drive = TypeOfDrive.AVAILABLE;
-        this.id = "";
+        //this.id = "";
         this.email = "";
         this.name = "";
         this.endLocation = null;
