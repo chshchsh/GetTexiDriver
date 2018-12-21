@@ -1,8 +1,8 @@
 package com.jct.bd.gettexidriver.model.entities;
 
-import android.location.Location;
 
 import com.google.firebase.database.Exclude;
+import com.jct.bd.gettexidriver.model.backend.MyLocation;
 
 import java.sql.Date;
 
@@ -13,13 +13,13 @@ public class Ride {
     private String name;
     private Date startDrive;
     private Date endDrive;
-    private Location startLocation;
-    private Location endLocation;
+    private MyLocation startLocation;
+    private MyLocation endLocation;
     private String phone;
     private String driverName;
 
 
-    public Ride(TypeOfDrive drive, String id, String email, String name, Date startDrive, Date endDrive, Location startLocation, Location endLocation, String phone) {
+    public Ride(TypeOfDrive drive, String id, String email, String name, Date startDrive, Date endDrive, MyLocation startLocation, MyLocation endLocation, String phone) {
         this.drive = drive;
         this.id = id;
         this.email = email;
@@ -33,11 +33,11 @@ public class Ride {
 
     public Ride() {
         this.drive = TypeOfDrive.AVAILABLE;
-        //this.id = "";
+        this.id = "";
         this.email = "";
         this.name = "";
-        this.endLocation = null;
-        this.startLocation = null;
+        this.endLocation = new MyLocation();
+        this.startLocation = new MyLocation();
         this.phone = "";
     }
 
@@ -52,11 +52,11 @@ public class Ride {
             throw new Exception("the email must contains @");
     }
 
-    public Location getStartLocation() {
+    public MyLocation getStartLocation() {
         return startLocation;
     }
 
-    public void setStartLocation(Location startLocation) {
+    public void setStartLocation(MyLocation startLocation) {
         this.startLocation = startLocation;
     }
 
@@ -88,11 +88,11 @@ public class Ride {
         this.endDrive = endDrive;
     }
 
-    public Location getEndLocation() {
+    public MyLocation getEndLocation() {
         return endLocation;
     }
 
-    public void setEndLocation(Location endLocation) {
+    public void setEndLocation(MyLocation endLocation) {
         this.endLocation = endLocation;
     }
 

@@ -8,16 +8,6 @@
     tools:context=".controller.MainActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/filter"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:text="@string/type_fo_filtering"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
      <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

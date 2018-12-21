@@ -21,23 +21,15 @@ import java.util.Date;
 import java.util.List;
 
 public class FireBase_DB_manager implements IDB_Backend {
-    public List<Ride> rides;
-    public List<Driver> drivers;
+    public List<Ride> rides = new ArrayList<>();
+    public List<Driver> drivers = new ArrayList<>();
     CurentLocation location = new CurentLocation();
 
-    public FireBase_DB_manager() {
-        this.rides = new ArrayList<>();
-        this.drivers = new ArrayList<>();
-    }
 
-    static DatabaseReference DriveRef;
-    static DatabaseReference RideRef;
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    static DatabaseReference DriveRef = database.getReference("Drivers");
+    static DatabaseReference RideRef = database.getReference("rides");
 
-    static {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DriveRef = database.getReference("Drivers");
-        RideRef = database.getReference("rides");
-    }
 
     @Override
     public void addDriver(final Driver driver, final Action<String> action) {
@@ -160,7 +152,7 @@ public class FireBase_DB_manager implements IDB_Backend {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 rides.clear();
                 for (DataSnapshot rideSnapshot : dataSnapshot.getChildren()) {
-                    Ride ride = rideSnapshot.getValue(Ride.class);
+                    Ride  ride = rideSnapshot.getValue(Ride.class);
                     try {
                         ride.setId(rideSnapshot.getKey());
                     } catch (Exception e) {
@@ -169,7 +161,6 @@ public class FireBase_DB_manager implements IDB_Backend {
                     rides.add(ride);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
