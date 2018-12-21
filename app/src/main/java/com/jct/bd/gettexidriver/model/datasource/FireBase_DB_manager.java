@@ -206,11 +206,11 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     private static ChildEventListener rideRefChildEventListener;
 
-    public void notifyToRideList(final NotifyDataChange<List<Ride>> notifyDataChange) {
+    public List<Ride> notifyToRideList(final NotifyDataChange<List<Ride>> notifyDataChange) {
         if (notifyDataChange != null) {
             if (rideRefChildEventListener != null) {
                 notifyDataChange.onFailure(new Exception("first unNotify ride list"));
-                return;
+                return null;
             }
             rides.clear();
             rideRefChildEventListener = new ChildEventListener() {
@@ -246,6 +246,7 @@ public class FireBase_DB_manager implements IDB_Backend {
             };
             RideRef.addChildEventListener(rideRefChildEventListener);
         }
+        return rides;
     }
 
     public static void stopNotifyToRidesList() {

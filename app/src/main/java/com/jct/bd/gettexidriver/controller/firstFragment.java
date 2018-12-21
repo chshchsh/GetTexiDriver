@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
+import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
 import java.util.ArrayList;
@@ -27,9 +28,18 @@ public class firstFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_first, container, false);
         lv = (ListView) view.findViewById(R.id.lv);
-        RideArrayAdapter itemArrayAdapter = new RideArrayAdapter(this, R.layout.ride_item, rideArrayList);
-        rideArrayList = FactoryBackend.getInstance().getRideList();
-        lv.setAdapter(itemArrayAdapter);
+        final RideArrayAdapter itemArrayAdapter = new RideArrayAdapter(this, R.layout.ride_item, rideArrayList);
+        rideArrayList = FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
+            @Override
+            public void OnDataChanged(List<Ride> obj) {
+                lv.setAdapter(itemArrayAdapter);
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+
+            }
+        });
         return view;
     }
 }
