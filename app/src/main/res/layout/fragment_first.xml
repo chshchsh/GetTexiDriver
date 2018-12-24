@@ -8,22 +8,8 @@
     tools:context=".controller.MainActivity"
     android:orientation="vertical">
 
-     <ListView
+     <ExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:id="@+id/lv"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="148dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.constraint.ConstraintLayout>
-    </FrameLayout>
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.jct.bd.gettexidriver.model.backend;
 
 
-public class MyLocation extends android.location.Location {
+import android.location.Location;
+
+public class MyLocation extends Location {
     public MyLocation(){
         super("");
     }

@@ -3,8 +3,8 @@ package com.jct.bd.gettexidriver.controller;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -28,6 +28,7 @@ import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
 import com.jct.bd.gettexidriver.model.entities.Driver;
+
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     TextView login;

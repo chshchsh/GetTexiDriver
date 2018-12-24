@@ -1,8 +1,6 @@
 package com.jct.bd.gettexidriver.model.backend;
 
-import android.content.Context;
 
-import com.jct.bd.gettexidriver.controller.MainActivity;
 import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
 
 public class FactoryBackend {
