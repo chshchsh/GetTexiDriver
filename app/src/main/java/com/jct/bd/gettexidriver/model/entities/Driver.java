@@ -38,6 +38,7 @@ public class Driver {
     public void setFullName(String lastName) {
         this.fullName = lastName;
     }
+    @Exclude
     public String getId() {
         return id;
     }

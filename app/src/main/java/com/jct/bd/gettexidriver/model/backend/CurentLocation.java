@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -26,6 +27,7 @@ public class CurentLocation {
     LocationManager locationManager;
     LocationListener locationListener;
     public static Location locationA = new Location("A");
+
     public CurentLocation(Context context) {
         this.context = context;
         locationListener = new LocationListener() {
@@ -35,6 +37,7 @@ public class CurentLocation {
                 if (isNetworkEnabled)
                     locationA.set(location);
             }
+
             public void onStatusChanged(String provider, int status, Bundle extras) {
             }
 
@@ -45,7 +48,7 @@ public class CurentLocation {
             }
         };
     }
-    @SuppressLint("MissingPermission")
+
     public void getLocation(Context context) {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         int locationOff = 0;
@@ -63,21 +66,24 @@ public class CurentLocation {
             context.startActivity(onGPS);
         } else {
             try {
-                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
+            }else{
                 isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                 isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
                 if (!isGPSEnabled && !isNetworkEnabled) {
                     Toast.makeText(context, "Please Set Network/GPS ON", Toast.LENGTH_SHORT).show();
                     return;
                 }
-            } catch (Exception e) {
+                if (isNetworkEnabled)
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                else if (isGPSEnabled)
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            }
+            } catch(Exception e){
                 Toast.makeText(context, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
-            if (isNetworkEnabled)
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-            else if (isGPSEnabled)
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
     }
 

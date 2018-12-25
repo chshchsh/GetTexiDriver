@@ -120,8 +120,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         viewHolder2.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder2.startButton.setVisibility(View.INVISIBLE);
+                viewHolder2.startButton.setVisibility(View.GONE);
                 viewHolder2.finishButton.setVisibility(View.VISIBLE);
+                String smsText = context.getString(R.string.Taxi_on_the_way);
+                Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+ride.getPhone()));
+                smsIntent.putExtra("sms_body", smsText);
+                context.startActivity(smsIntent);
                 try {
                     FactoryBackend.getInstance().RideBeProgress(ride);
                 } catch (Exception e) {
@@ -151,7 +155,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 viewHolder2.startButton.setVisibility(View.VISIBLE);
-                viewHolder2.finishButton.setVisibility(View.INVISIBLE);
+                viewHolder2.finishButton.setVisibility(View.GONE);
                 try {
                     FactoryBackend.getInstance().RideBeFinish(ride);
                 } catch (Exception e) {
@@ -179,22 +183,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         viewHolder2.messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("sms:" + ride.getPhone());
-                Intent intent = new Intent(Intent.ACTION_SEND,uri);
-                intent.setType("text/palain");
-                intent.putExtra("jid",ride.getPhone()+"@s.whatsapp.net");
-                intent.setPackage("com.whatsapp");
-                context.startActivity(intent);
+                Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "smsto",ride.getPhone(),null));
+                context.startActivity(smsIntent);
             }
         });
         viewHolder2.emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setData(Uri.parse("mail:"));
-                intent.putExtra(Intent.EXTRA_EMAIL,ride.getEmail());
-                intent.setType("message/rfc822");
-                context.startActivity(Intent.createChooser(intent,"choose an email client"));
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto",ride.getEmail(), null));
+                context.startActivity(Intent.createChooser(emailIntent, "choose an email client"));
             }
         });
         viewHolder2.callButton.setOnClickListener(new View.OnClickListener() {

@@ -21,7 +21,5 @@ public interface IDB_Backend {
     public List<Ride> paymentRides(double payment);
     public void RideBeProgress(Ride ride) throws Exception;
     public void RideBeFinish(Ride ride) throws Exception;
-    public void addRide(Ride ride, final Action<String> action);
-    public void removeRide(String id, final Action<String> action);
     public void updateRide(Ride ride, final Action<String> action);
 }

@@ -115,7 +115,6 @@ public class Ride {
     public String getId() {
         return id;
     }
-
     public void setId(String id) throws Exception {
         if (IDCheck(id))
         this.id = id;
