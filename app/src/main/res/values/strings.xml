@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">GetTexiDriver</string>
     <string name="todo">TODO</string>
-    <string name="user_name">user Name</string>
-    <string name="password">password</string>
-    <string name="user_name1">user name</string>
-    <string name="id_number">id number</string>
-    <string name="phone_number">phone number</string>
-    <string name="email_adress">email adress</string>
-    <string name="credit_number">credit number</string>
+    <string name="user_name">user Name:</string>
+    <string name="password">password:</string>
+    <string name="user_name1">user name:</string>
+    <string name="id_number">id number:</string>
+    <string name="phone_number">phone number:</string>
+    <string name="email_adress">email adress:</string>
+    <string name="credit_number">credit number:</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="have_you_account_login_her">have you account? login her!</string>
@@ -28,4 +28,6 @@
     <string name="send_message_to_passenger">send message to passenger</string>
     <string name="take_the_ride">take the ride</string>
     <string name="finish_the_ride">finish the ride</string>
+    <string name="distance">distance:</string>
+    <string name="destination">destination:</string>
 </resources>
