@@ -100,7 +100,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "the email or the password is not correct!", Toast.LENGTH_LONG).show();
                             } else {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                Intent intent = getIntent();
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("driver email",email).putExtra("driver password",Ipassword));
                                 Store();
                                 finish();
                             }

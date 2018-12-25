@@ -39,7 +39,23 @@ public class FireBase_DB_manager implements IDB_Backend {
             public void onSuccess(Void aVoid) {
                 action.onSuccess(driver.getId());
                 action.onProgress("upload Driver data", 100);
-                drivers.add(driver);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                action.onFailure(e);
+                action.onProgress("error upload Driver data", 100);
+            }
+        });
+    }
+    @Override
+    public void addRide(final Ride ride, final Action<String> action) {
+        String key = ride.getId();
+        RideRef.child(key).setValue(ride).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                action.onSuccess(ride.getId());
+                action.onProgress("upload Driver data", 100);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -281,4 +297,52 @@ public class FireBase_DB_manager implements IDB_Backend {
             DriveRef.addChildEventListener(driverRefChildEventListener);
         }
     }
+    @Override
+    public  void removeRide(String id, final Action<String> action) {
+        final String key = id;
+        RideRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final Ride ride = dataSnapshot.getValue(Ride.class);
+                if (ride == null)
+                    action.onFailure(new Exception("ride not found ..."));
+                else {
+                            RideRef.child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    action.onSuccess(ride.getId());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    action.onFailure(e);
+                                }
+                            });
+                        }
+                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                action.onFailure(databaseError.toException());
+            }
+        });
+    }
+    @Override
+    public void updateRide(final Ride toUpdate, final Action<String> action) {
+        final String key = ((String) toUpdate.getId());
+        removeRide(toUpdate.getId(), new Action<String>() {
+            @Override
+            public void onSuccess(String obj) {
+                addRide(toUpdate, action);
+            }
+            @Override
+            public void onFailure(Exception exception) {
+                action.onFailure(exception);
+            }
+            @Override
+            public void onProgress(String status, double percent) {
+                action.onProgress(status, percent);
+            }
+        });
+    }
+
 }

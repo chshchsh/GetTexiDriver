@@ -1,5 +1,7 @@
 package com.jct.bd.gettexidriver.model.backend;
 
+import android.app.Activity;
+
 import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
@@ -19,4 +21,7 @@ public interface IDB_Backend {
     public List<Ride> paymentRides(double payment);
     public void RideBeProgress(Ride ride) throws Exception;
     public void RideBeFinish(Ride ride) throws Exception;
+    public void addRide(Ride ride, final Action<String> action);
+    public void removeRide(String id, final Action<String> action);
+    public void updateRide(Ride ride, final Action<String> action);
 }

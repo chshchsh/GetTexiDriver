@@ -4,7 +4,7 @@ package com.jct.bd.gettexidriver.model.entities;
 import com.google.firebase.database.Exclude;
 import com.jct.bd.gettexidriver.model.backend.MyLocation;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Ride {
     private TypeOfDrive drive;

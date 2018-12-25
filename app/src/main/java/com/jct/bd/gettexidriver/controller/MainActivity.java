@@ -10,16 +10,42 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.backend.MyService;
+import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
+import com.jct.bd.gettexidriver.model.entities.Driver;
+import com.jct.bd.gettexidriver.model.entities.Ride;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Button firstFragment;
-
+    String driverName;
+    String driverEmail;
+    String driverPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(MainActivity.this, MyService.class));
+        FactoryBackend.getInstance().notifyToDriverList(new NotifyDataChange<List<Driver>>() {
+            @Override
+            public void OnDataChanged(List<Driver> drivers) {
+                Intent intent = getIntent();
+                driverEmail = intent.getExtras().getString("driver email");
+                driverPassword = intent.getExtras().getString("driver password");
+                for (Driver driver : drivers)
+                {
+                    if (driver.getEmail().matches(driverEmail)&&driver.getPassword().matches(driverPassword))
+                        driverName = driver.getFullName();
+                }
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+
+            }
+        });
 // get the reference of Button's
         firstFragment = (Button) findViewById(R.id.firstFragment);
 // perform setOnClickListener event on First Button
@@ -30,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadFragment(Fragment fragment) {
+    private void loadFragment(firstFragment fragment) {
+        fragment.getIntance(driverName);
 // create a FragmentManager
       FragmentManager fm = getSupportFragmentManager();
 // create a FragmentTransaction to begin the transaction and replace the Fragment

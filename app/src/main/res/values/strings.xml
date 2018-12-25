@@ -26,4 +26,6 @@
     <string name="full_name">full name:</string>
     <string name="call_to_passenger">call to passenger</string>
     <string name="send_message_to_passenger">send message to passenger</string>
+    <string name="take_the_ride">take the ride</string>
+    <string name="finish_the_ride">finish the ride</string>
 </resources>
