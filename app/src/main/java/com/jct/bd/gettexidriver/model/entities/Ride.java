@@ -125,7 +125,7 @@ public class Ride {
         else
             throw new Exception(String.valueOf(R.string.length_id));
     }
-    static boolean IDCheck(String strID)
+    public static boolean IDCheck(String strID)
     {
         int[] id_12_digits = { 1, 2, 1, 2, 1, 2, 1, 2, 1 };
         int count = 0;

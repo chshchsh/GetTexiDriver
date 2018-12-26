@@ -6,18 +6,18 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +31,8 @@ import com.jct.bd.gettexidriver.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     TextView register;
+    CheckBox remember;
+    TextInputLayout InputUserName,InputPassword;
     EditText userName,password;
     CardView login;
     public static final String mypreference = "mypref";
@@ -47,12 +49,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void findViews(){
         login = (CardView) findViewById(R.id.Login);
         login.setOnClickListener(this);
-        login.setEnabled(false);
+        remember = (CheckBox) findViewById(R.id.remember_me);
         userName = (EditText) findViewById(R.id.userName);
         password = (EditText) findViewById(R.id.password);
+        InputPassword = (TextInputLayout) findViewById(R.id.InputPassword);
+        InputUserName = (TextInputLayout) findViewById(R.id.InputUserName);
         Fetch();
-        userName.addTextChangedListener(AddTextWatcer);
-        password.addTextChangedListener(AddTextWatcer);
         register = findViewById(R.id.textView2);
         auth = FirebaseAuth.getInstance();
         String text = getString(R.string.registerbutton);
@@ -73,22 +75,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         register.setText(ss);
         register.setMovementMethod(LinkMovementMethod.getInstance());
     }
-    private TextWatcher AddTextWatcer = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private boolean validateUserName(){
+        String userNameInput = InputUserName.getEditText().getText().toString();
+        if(userNameInput.isEmpty()){
+            InputUserName.setError(getString(R.string.fill_userName));
+            InputUserName.setErrorEnabled(true);
+            userName.requestFocus();
+            Toast.makeText(this,getString(R.string.fill_userName),Toast.LENGTH_LONG).show();
+            return false;
         }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String inputName = userName.getText().toString().trim();
-            String inputPassword = password.getText().toString().trim();
-            login.setEnabled(!inputName.isEmpty()&&!inputPassword.isEmpty());
+        else {
+            InputUserName.setErrorEnabled(false);
+            return true;
         }
-        @Override
-        public void afterTextChanged(Editable s) {
-
+    }
+    private boolean validatePassword(){
+        String passwordInput = InputPassword.getEditText().getText().toString();
+        if(passwordInput.isEmpty()){
+            InputPassword.setError(getString(R.string.fill_password));
+            InputPassword.setErrorEnabled(true);
+            password.requestFocus();
+            Toast.makeText(this,getString(R.string.fill_password),Toast.LENGTH_LONG).show();
+            return false;
+        }else if(passwordInput.length()<6){
+            InputPassword.setError(getString(R.string.length_password));
+            InputPassword.setErrorEnabled(true);
+            password.requestFocus();
+            Toast.makeText(this,getString(R.string.length_password),Toast.LENGTH_LONG).show();
+            return false;
         }
-    };
+        else {
+            InputPassword.setErrorEnabled(false);
+            return true;
+        }
+    }
+    public void confirmInput(View v){
+        if(!validateUserName()||!validatePassword())
+            return;
+        else
+            loginUser();
+    }
     public void loginUser() {
         final String email = userName.getText().toString();
         final String Ipassword = password.getText().toString();
@@ -102,7 +128,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             } else {
                                 Intent intent = getIntent();
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class).putExtra("driver email",email).putExtra("driver password",Ipassword));
-                                Store();
+                                if(remember.isChecked()) {
+                                    Store();
+                                }
                                 finish();
                             }
                         }
@@ -117,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.sample_anim);
             login.startAnimation(animation);
-            loginUser();
+            confirmInput(v);
         }
     }
     public void Store() {

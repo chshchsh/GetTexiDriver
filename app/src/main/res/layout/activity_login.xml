@@ -8,25 +8,31 @@
     android:background="@drawable/gradient"
     tools:context=".controller.LoginActivity">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="155dp"
-            android:layout_height="157dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="63dp"
-            android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/drive" />
-    <EditText
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="134dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/drive" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="198dp"
+        android:layout_alignParentLeft="true">
+
+        <EditText
             android:id="@+id/userName"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="243dp"
             android:background="#11000000"
             android:drawableLeft="@drawable/adb"
             android:drawableStart="@drawable/adb"
@@ -34,14 +40,22 @@
             android:hint="@string/email_user"
             android:inputType="textPersonName"
             android:textSize="30sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="206dp"
+        app:passwordToggleEnabled="true"
+        android:layout_alignParentLeft="true">
+
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="242dp"
+            android:layout_height="wrap_content"
             android:background="#11000000"
             android:drawableLeft="@drawable/lock"
             android:drawableStart="@drawable/lock"
@@ -49,20 +63,21 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textSize="30sp" />
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/Login"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:clickable="true"
-        android:contextClickable="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="154dp"
+        android:layout_marginBottom="96dp"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:focusable="true"
         app:cardBackgroundColor="@android:color/holo_orange_light"
         app:cardCornerRadius="26dp"
-        app:cardElevation="16dp"
-        android:focusable="true">
+        app:cardElevation="16dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -85,7 +100,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="93dp"
+        android:layout_marginBottom="41dp"
         android:text="@string/dont_have_you_account_register_her"
         android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:checked="false"
+        android:layout_below="@+id/InputPassword"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="-191dp"
+        android:text="@string/remember_me"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="23dp" />
 </RelativeLayout>

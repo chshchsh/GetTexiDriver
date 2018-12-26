@@ -28,6 +28,8 @@ import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 
+import static com.jct.bd.gettexidriver.model.entities.Ride.IDCheck;
+
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     TextView login;
@@ -59,7 +61,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         CreditCard = (EditText) findViewById(R.id.CreditCard);
         register = (CardView) findViewById(R.id.Register);
         register.setOnClickListener(this);
-        register.setEnabled(false);
         auth = FirebaseAuth.getInstance();
         String text = getString(R.string.account);
         SpannableString ss = new SpannableString(text);
@@ -99,19 +100,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return true;
         }
     }
-    private boolean validateId(){
-        String IdNumberInput = InputIdNumber.getEditText().getText().toString();
-        if(IdNumberInput.isEmpty()){
-            InputIdNumber.setError(getString(R.string.fill_id));
-            InputIdNumber.setErrorEnabled(true);
-            id.requestFocus();
-            Toast.makeText(this,getString(R.string.fill_id),Toast.LENGTH_LONG).show();
-            return false;
-        }else {
-            InputIdNumber.setErrorEnabled(false);
-            return true;
-        }
-    }
     private boolean validatePassword(){
         String passwordInput = InputPassword.getEditText().getText().toString();
         if(passwordInput.isEmpty()){
@@ -120,8 +108,41 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             password.requestFocus();
             Toast.makeText(this,getString(R.string.fill_password),Toast.LENGTH_LONG).show();
             return false;
-        }else {
+        }else if(passwordInput.length()<6){
+            InputPassword.setError(getString(R.string.length_password));
+            InputPassword.setErrorEnabled(true);
+            password.requestFocus();
+            Toast.makeText(this,getString(R.string.length_password),Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else {
             InputPassword.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private boolean validateId(){
+        String IdNumberInput = InputIdNumber.getEditText().getText().toString();
+        if(IdNumberInput.isEmpty()){
+            InputIdNumber.setError(getString(R.string.fill_id));
+            InputIdNumber.setErrorEnabled(true);
+            id.requestFocus();
+            Toast.makeText(this,getString(R.string.fill_id),Toast.LENGTH_LONG).show();
+            return false;
+        }else if(!IDCheck(IdNumberInput)){
+            InputIdNumber.setError(getString(R.string.Extract_id));
+            InputIdNumber.setErrorEnabled(true);
+            id.requestFocus();
+            Toast.makeText(this,getString(R.string.Extract_id),Toast.LENGTH_LONG).show();
+            return false;
+        }else if(IdNumberInput.length()!=9){
+            InputIdNumber.setError(getString(R.string.length_id));
+            InputIdNumber.setErrorEnabled(true);
+            id.requestFocus();
+            Toast.makeText(this,getString(R.string.length_id),Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else {
+            InputIdNumber.setErrorEnabled(false);
             return true;
         }
     }
@@ -159,13 +180,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             InputPhone.setErrorEnabled(true);
             Toast.makeText(this,getString(R.string.fill_phone),Toast.LENGTH_LONG).show();
             return false;
-        }else {
+        }else if(phoneInput.length()!=9||phoneInput.length()!=10){
+            InputPhone.setError(getString(R.string.length_phone));
+            phoneNumber.requestFocus();
+            InputPhone.setErrorEnabled(true);
+            Toast.makeText(this,getString(R.string.length_phone),Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else {
             InputPhone.setErrorEnabled(false);
             return true;
         }
     }
     public void confirmInput(View v){
-        if(!validateEmail()|| !validateCreditCard()||validateId()||validatePassword()||validatePhone()||validateUserName())
+        if(!validateUserName()||!validateId()||!validatePhone()||!validateEmail()||!validateCreditCard()||!validatePassword())
             return;
         else
             registerUser();
@@ -189,6 +217,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 backend.addDriver(driver, new Action<String>() {
                                     @Override
                                     public void onSuccess(String obj) {
+                                        register.setEnabled(true);
                                         Toast.makeText(getBaseContext(), getString(R.string.insert) + obj, Toast.LENGTH_LONG).show();
                                     }
 
