@@ -3,6 +3,7 @@ package com.jct.bd.gettexidriver.model.entities;
 import android.location.Location;
 
 import com.google.firebase.database.Exclude;
+import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.model.backend.CurentLocation;
 
 
@@ -44,10 +45,13 @@ public class Driver {
     }
 
     public void setId(String id) throws Exception {
+        if(id.length()!=9)
             if (IDCheck(id))
                 this.id = id;
             else
-                throw new Exception ("this id not exists ");
+                throw new Exception (String.valueOf(R.string.Extract_id));
+            else
+                throw new Exception(String.valueOf(R.string.length_id));
         }
         static boolean IDCheck(String strID)
         {
@@ -55,7 +59,6 @@ public class Driver {
             int count = 0;
             if (strID == null)
                 return false;
-            strID = leftPad(strID,9,'0');
             for (int i = 0; i < 9; i++)
             {
                 int num = Integer.parseInt(strID.substring(i, i+1)) * id_12_digits[i];
@@ -64,17 +67,6 @@ public class Driver {
                 count += num;
             }
             return (count % 10 == 0);
-        }
-        public static String leftPad(String originalString, int length,
-        char padCharacter) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < length; i++) {
-                sb.append(padCharacter);
-            }
-            String padding = sb.toString();
-            String paddedString = padding.substring(originalString.length())
-                    + originalString;
-            return paddedString;
         }
 
     public String getPhoneNumber() {
@@ -85,7 +77,7 @@ public class Driver {
         if (phoneNumber.length() == 9 || phoneNumber.length() == 10)
             this.phoneNumber = phoneNumber;
         else
-            throw new Exception("the length of the phone number is not make sense");
+            throw new Exception(String.valueOf(R.string.length_phone));
     }
 
     public String getEmail() {
@@ -96,7 +88,7 @@ public class Driver {
         if (email.contains("@"))
             this.email = email;
         else
-            throw new Exception("the email must contains @");
+            throw new Exception(String.valueOf(R.string.contains));
     }
 
     public String getCreditCard() {
@@ -115,7 +107,7 @@ public class Driver {
         if(password.length()>=6)
         this.password = password;
         else
-            throw new Exception("the password must be longer then five letters");
+            throw new Exception(String.valueOf(R.string.length_password));
     }
 
     public Location getCurrentLocation() {

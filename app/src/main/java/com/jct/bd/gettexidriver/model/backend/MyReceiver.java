@@ -19,8 +19,8 @@ public class MyReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.taxi)
-                .setContentTitle("new request for drive")
-                .setContentText("you have a new relevant ride to take");
+                .setContentTitle(context.getString(R.string.new_reqest))
+                .setContentText(context.getString(R.string.relevent_ride));
         builder.setContentIntent(contentIntent);
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         builder.setAutoCancel(true);

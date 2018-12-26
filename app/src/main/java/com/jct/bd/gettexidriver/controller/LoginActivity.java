@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 ds.setColor(Color.YELLOW);
             }
         };
-        ss.setSpan(clickableSpan,23,36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan,20,30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         register.setText(ss);
         register.setMovementMethod(LinkMovementMethod.getInstance());
     }

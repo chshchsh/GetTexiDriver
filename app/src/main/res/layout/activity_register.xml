@@ -6,95 +6,135 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     tools:context=".controller.RegisterActivity">
-    <EditText
-        android:id="@+id/UserName"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="29dp"
-        android:background="#11000000"
-        android:drawableLeft="@drawable/adb"
-        android:drawableStart="@drawable/adb"
-        android:ems="10"
-        android:hint="@string/user_name1"
-        android:inputType="textPersonName"
-        android:textSize="30sp"
-        android:layout_alignParentLeft="true" />
 
-    <EditText
-        android:id="@+id/idNumber"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputUserName"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="85dp"
-        android:background="#11000000"
-        android:drawableLeft="@drawable/id"
-        android:drawableStart="@drawable/id"
-        android:ems="10"
-        android:hint="@string/id_number"
-        android:inputType="number"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_above="@id/InputIdNumber"
+        android:layout_marginBottom="10dp">
 
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="142dp"
-        android:background="#11000000"
-        android:drawableLeft="@drawable/phone"
-        android:drawableStart="@drawable/phone"
-        android:ems="10"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:textSize="30sp" />
+        <EditText
+            android:id="@+id/UserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/adb"
+            android:drawableStart="@drawable/adb"
+            android:ems="10"
+            android:hint="@string/user_name1"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/email"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputIdNumber"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_above="@+id/password"
-        android:layout_alignParentStart="true"
-        android:background="#11000000"
-        android:drawableLeft="@drawable/email"
-        android:drawableStart="@drawable/email"
-        android:ems="10"
-        android:hint="@string/email_adress"
-        android:inputType="textEmailAddress"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content"
+        android:layout_above="@id/InputPhoneNumber"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
-    <EditText
-        android:id="@+id/CreditCard"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="196dp"
-        android:background="#11000000"
-        android:drawableLeft="@drawable/credit_card"
-        android:drawableStart="@drawable/credit_card"
-        android:ems="10"
-        android:hint="@string/credit_number"
-        android:inputType="number"
-        android:textSize="30sp" />
+        <EditText
+            android:id="@+id/idNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/id"
+            android:drawableStart="@drawable/id"
+            android:ems="10"
+            android:hint="@string/id_number"
+            android:inputType="number"
+            android:textSize="18sp" />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/password"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputPhoneNumber"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="173dp"
-        android:background="#11000000"
-        android:drawableLeft="@drawable/lock"
-        android:drawableStart="@drawable/lock"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content"
+        android:layout_above="@id/InputEmail"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/phone"
+            android:drawableStart="@drawable/phone"
+            android:ems="10"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:textSize="18sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/InputCreditCard"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/password"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/email"
+            android:drawableStart="@drawable/email"
+            android:ems="10"
+            android:hint="@string/email_adress"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputCreditCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_above="@id/InputPassword"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/CreditCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/credit_card"
+            android:drawableStart="@drawable/credit_card"
+            android:ems="10"
+            android:hint="@string/credit_number"
+            android:inputType="number"
+            android:textSize="18sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InputPassword"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        android:layout_above="@id/Register">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/lock"
+            android:drawableStart="@drawable/lock"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textSize="18sp" />
+    </android.support.design.widget.TextInputLayout>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -111,7 +151,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="100dp"
         android:clickable="true"
         android:contextClickable="true"
         android:focusable="true"
@@ -122,7 +162,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
