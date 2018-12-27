@@ -247,10 +247,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             // We implement here the filter logic
-            if (constraint == null || constraint.length() == 0) {
+            if ((constraint == null) || (constraint.length() == 0)) {
                 // No filter implemented we return all the list
                 results.values = orginRideList;
                 results.count = orginRideList.size();
+            }else if (!Character.isDigit(constraint.charAt(constraint.length()-1))){
+                results.values = rideList;
+                results.count = rideList.size();
             }
             else {
                 // We perform filtering operation
@@ -261,7 +264,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                     distance /= 100;
                     int temp = (int)(distance);
                     distance = (float)(temp) / 10;
-                    if (distance >= Integer.parseInt(constraint.toString()))
+                    if (distance >= Float.valueOf(constraint.toString()))
                         nRideList.add(ride);
                 }
                 results.values = nRideList;
@@ -272,12 +275,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            if (results.count == 0)
-                notifyDataSetInvalidated();
-            else {
-                rideList = (List<Ride>) results.values;
-                notifyDataSetChanged();
-            }
+            rideList = (List<Ride>) results.values;
+            notifyDataSetChanged();
         }
     }
 }
