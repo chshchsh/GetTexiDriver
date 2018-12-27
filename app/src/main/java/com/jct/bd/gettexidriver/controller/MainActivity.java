@@ -53,12 +53,13 @@ public class MainActivity extends AppCompatActivity {
         firstFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new firstFragment());
+                firstFragment firstFragment = new firstFragment();
+                firstFragment.getIntance(driverName);
+                loadFragment(firstFragment);
             }
         });
     }
-    private void loadFragment(firstFragment fragment) {
-        fragment.getIntance(driverName);
+    private void loadFragment(Fragment fragment) {
 // create a FragmentManager
       FragmentManager fm = getSupportFragmentManager();
 // create a FragmentTransaction to begin the transaction and replace the Fragment

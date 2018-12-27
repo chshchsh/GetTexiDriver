@@ -21,9 +21,11 @@
         android:id="@+id/frameLayout"
         android:layout_width="368dp"
         android:layout_height="437dp"
+        android:layout_marginTop="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstFragment">
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

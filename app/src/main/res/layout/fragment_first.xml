@@ -8,6 +8,15 @@
     tools:context=".controller.MainActivity"
     android:orientation="vertical">
 
+     <EditText
+         android:id="@+id/distanceFilter"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:drawableLeft="@drawable/ic_search_black_24dp"
+         android:hint="@string/filter"
+         android:inputType="number"
+         android:iconifiedByDefault="false"/>
+
      <ExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

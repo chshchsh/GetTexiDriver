@@ -23,10 +23,6 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Handler handler =new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
                     @Override
                     public void OnDataChanged(List<Ride> obj) {
@@ -39,8 +35,6 @@ public class MyService extends Service {
                         Toast.makeText(getBaseContext(), "error to get rides list\n" + exception.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
-            }
-        },10000);
         return START_STICKY;
     }
     @Override

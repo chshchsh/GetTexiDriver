@@ -51,4 +51,5 @@
     <string name="length_phone">the length of the phone number is not make sense</string>
     <string name="length_password">the password must be longer then five letters</string>
     <string name="remember_me">remember me!</string>
+    <string name="filter">distance from the raid Filter(KM)</string>
 </resources>

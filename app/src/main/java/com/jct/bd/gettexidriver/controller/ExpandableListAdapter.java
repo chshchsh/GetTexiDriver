@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.Filterable;
+import android.widget.Filter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,18 +19,22 @@ import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class ExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
     private Context context;
     String driverName;
+    Filter distanceFilter;
     private List<Ride> rideList;
+    private List<Ride> orginRideList;
     CurentLocation location;
     public ExpandableListAdapter(Context context, List<Ride> rideList,String driverName) {
         this.context = context;
-        this.driverName = driverName;
         this.rideList = rideList;
+        this.driverName = driverName;
+        this.orginRideList = rideList;
         location = new CurentLocation(context);
         location.getLocation(context);
     }
@@ -211,6 +217,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+    @Override
+    public Filter getFilter() {
+        if(distanceFilter == null)
+            distanceFilter = new DistanceFilter();
+        return distanceFilter;
+    }
+
     public static class ViewHolder {
         TextView destination;
         TextView distance;
@@ -224,5 +238,46 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Button emailButton;
         Button startButton;
         Button finishButton;
+    }
+    public void resetData() {
+        rideList = orginRideList;
+    }
+    private class DistanceFilter extends Filter{
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            // We implement here the filter logic
+            if (constraint == null || constraint.length() == 0) {
+                // No filter implemented we return all the list
+                results.values = orginRideList;
+                results.count = orginRideList.size();
+            }
+            else {
+                // We perform filtering operation
+                List<Ride> nRideList = new ArrayList<Ride>();
+
+                for (Ride ride : rideList) {
+                    float distance = (ride.getStartLocation().distanceTo(location.locationA));
+                    distance /= 100;
+                    int temp = (int)(distance);
+                    distance = (float)(temp) / 10;
+                    if (distance >= Integer.parseInt(constraint.toString()))
+                        nRideList.add(ride);
+                }
+                results.values = nRideList;
+                results.count = nRideList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            if (results.count == 0)
+                notifyDataSetInvalidated();
+            else {
+                rideList = (List<Ride>) results.values;
+                notifyDataSetChanged();
+            }
+        }
     }
 }

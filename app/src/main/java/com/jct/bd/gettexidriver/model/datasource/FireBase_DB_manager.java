@@ -51,6 +51,7 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     @Override
     public List<Ride> availableRides() {
+        boolean flag = true;
        notifyToRideList(new NotifyDataChange<List<Ride>>() {
            @Override
            public void OnDataChanged(List<Ride> notifyRides) {

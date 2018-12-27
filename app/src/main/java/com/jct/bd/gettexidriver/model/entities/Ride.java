@@ -117,7 +117,7 @@ public class Ride {
         return id;
     }
     public void setId(String id) throws Exception {
-        if (id.length() != 9)
+        if (id.length() == 9)
             if (IDCheck(id))
                 this.id = id;
             else

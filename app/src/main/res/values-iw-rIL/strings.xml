@@ -26,7 +26,7 @@
     <string name="send_message_to_passenger">שלח הודעה לנוסע</string>
     <string name="take_the_ride">התחל נסיעה</string>
     <string name="finish_the_ride">סיים נסיעה</string>
-    <string name="distance">מרחק מהנוסע (בק"מ) :</string>
+    <string name="distance">מרחק מהנוסע (בק/"מ) :</string>
     <string name="destination">יעד:</string>
     <string name="Taxi_on_the_way">שלום!! המונית בדרך אלייך!!</string>
     <string name="firebase_error">שגיאה בטעינת הfirebase</string>
