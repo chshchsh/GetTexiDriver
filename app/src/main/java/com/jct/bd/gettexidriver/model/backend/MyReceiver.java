@@ -6,10 +6,13 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.controller.MainActivity;
+
+import static android.support.v4.content.ContextCompat.getColor;
 
 public class MyReceiver extends BroadcastReceiver {
     @Override
@@ -18,12 +21,17 @@ public class MyReceiver extends BroadcastReceiver {
                 new Intent(context,MainActivity.class),0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.taxi)
-                .setContentTitle(context.getString(R.string.new_reqest))
-                .setContentText(context.getString(R.string.relevent_ride));
+                .setContentTitle(context.getString(R.string.relevent_ride))
+                .setContentText(context.getString(R.string.new_reqest));
         builder.setContentIntent(contentIntent);
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         builder.setAutoCancel(true);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setSmallIcon(R.drawable.ic_directions_car_black_24dp);
+            builder.setColor(getColor(context,R.color.bg_login));
+        } else {
+            builder.setSmallIcon(R.drawable.drive);
+        }
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1,builder.build());
     }

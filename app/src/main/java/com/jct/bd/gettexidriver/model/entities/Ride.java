@@ -12,15 +12,15 @@ public class Ride {
     private String id;
     private String email;
     private String name;
-    private Date startDrive;
-    private Date endDrive;
+    private String startDrive;
+    private String endDrive;
     private MyLocation startLocation;
     private MyLocation endLocation;
     private String phone;
     private String driverName;
 
 
-    public Ride(TypeOfDrive drive, String id, String email, String name, Date startDrive, Date endDrive, MyLocation startLocation, MyLocation endLocation, String phone) {
+    public Ride(TypeOfDrive drive, String id, String email, String name, String startDrive, String endDrive, MyLocation startLocation, MyLocation endLocation, String phone) {
         this.drive = drive;
         this.id = id;
         this.email = email;
@@ -72,20 +72,20 @@ public class Ride {
             throw new Exception(String.valueOf(R.string.length_phone));
     }
 
-    public Date getStartDrive() {
+    public String getStartDrive() {
 
         return startDrive;
     }
 
-    public void setStartDrive(Date startDrive) {
+    public void setStartDrive(String startDrive) {
         this.startDrive = startDrive;
     }
 
-    public Date getEndDrive() {
+    public String getEndDrive() {
         return endDrive;
     }
 
-    public void setEndDrive(Date endDrive) {
+    public void setEndDrive(String endDrive) {
         this.endDrive = endDrive;
     }
 

@@ -26,7 +26,7 @@
     <string name="send_message_to_passenger">שלח הודעה לנוסע</string>
     <string name="take_the_ride">התחל נסיעה</string>
     <string name="finish_the_ride">סיים נסיעה</string>
-    <string name="distance">מרחק מהנוסע (בק/"מ) :</string>
+    <string name="distance">מרחק מהנוסע (בק\"מ) :</string>
     <string name="destination">יעד:</string>
     <string name="Taxi_on_the_way">שלום!! המונית בדרך אלייך!!</string>
     <string name="firebase_error">שגיאה בטעינת הfirebase</string>
@@ -48,4 +48,11 @@
     <string name="length_id">התז חייב ליהות באורך 9</string>
     <string name="length_phone">האורך של מספר הטלפון לא הגיוני</string>
     <string name="length_password">הסיסמא חייבת ליהות 5 תווים לפחות</string>
+    <string name="remember_me">תזכור אותי!</string>
+    <string name="filter">חפש מרחק מהנוסע בק\"מ</string>
+    <string name="shekel"> ש\"ח</string>
+    <string name="KM"> ק\"מ</string>
+    <string name="update">נסיעה עודכנה</string>
+    <string name="payment">תשלום:</string>
+    <string name="end_drive">סיום נסיעה:</string>
 </resources>

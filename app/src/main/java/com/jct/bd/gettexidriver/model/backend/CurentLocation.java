@@ -78,7 +78,7 @@ public class CurentLocation {
                 }
                 if (isNetworkEnabled)
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-                else if (isGPSEnabled)
+                if (isGPSEnabled)
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             }
             } catch(Exception e){
@@ -88,7 +88,7 @@ public class CurentLocation {
     }
 
     //this func get location and convert it to name of location
-    public String getPlace(Location location, Context context) {
+    public static String getPlace(Location location, Context context) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         List<Address> addresses = null;
         try {

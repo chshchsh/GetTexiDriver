@@ -52,4 +52,9 @@
     <string name="length_password">the password must be longer then five letters</string>
     <string name="remember_me">remember me!</string>
     <string name="filter">distance from the raid Filter(KM)</string>
+    <string name="shekel">SHEKEL</string>
+    <string name="KM">KM</string>
+    <string name="update">update ride</string>
+    <string name="payment">payment:</string>
+    <string name="end_drive">end Drive:</string>
 </resources>

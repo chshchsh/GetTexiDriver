@@ -2,9 +2,7 @@ package com.jct.bd.gettexidriver.model.backend;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.jct.bd.gettexidriver.controller.MainActivity;
@@ -26,7 +24,7 @@ public class MyService extends Service {
                 FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
                     @Override
                     public void OnDataChanged(List<Ride> obj) {
-                        Intent intent = new Intent(MyService.this,MainActivity.class);
+                        Intent intent = new Intent(MyService.this,MyReceiver.class);
                         sendBroadcast(intent);
                     }
 

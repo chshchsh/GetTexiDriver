@@ -19,8 +19,11 @@ import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
@@ -96,7 +99,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         distance /= 100;
         int temp = (int)(distance);
         distance = (float)(temp) / 10;
-        viewHolder.distance.setText(String.valueOf(distance)+ " KM");
+        viewHolder.distance.setText(String.valueOf(distance)+ context.getString(R.string.KM));
         // Return the completed view to render on screen
         return convertView;
     }
@@ -137,12 +140,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 } catch (Exception e) {
                     Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
-                ride.setStartDrive(Calendar.getInstance().getTime());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD/MM/YYYY");
+                Date date = Calendar.getInstance().getTime();
+                ride.setStartDrive(simpleDateFormat.format(date));
                 ride.setDriverName(driverName);
                 FactoryBackend.getInstance().updateRide(ride, new Action<String>() {
                     @Override
                     public void onSuccess(String obj) {
-                        Toast.makeText(context,"update ride",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, R.string.update,Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -167,11 +172,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 } catch (Exception e) {
                     Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
-                ride.setEndDrive(Calendar.getInstance().getTime());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = Calendar.getInstance().getTime();
+                ride.setEndDrive(simpleDateFormat.format(date));
                 FactoryBackend.getInstance().updateRide(ride, new Action<String>() {
                     @Override
                     public void onSuccess(String obj) {
-                        Toast.makeText(context,"update ride",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, R.string.update,Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -272,7 +279,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
             }
             return results;
         }
-
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             rideList = (List<Ride>) results.values;

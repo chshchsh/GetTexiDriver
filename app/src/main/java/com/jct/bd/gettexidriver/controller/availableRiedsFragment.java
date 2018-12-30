@@ -10,16 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.SearchView;
 
 import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
+import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class firstFragment extends Fragment {
+public class availableRiedsFragment extends Fragment {
     View view;
     ExpandableListAdapter listAdapter;
     EditText distanceFilter;
@@ -60,9 +60,22 @@ public class firstFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
-        listAdapter = new ExpandableListAdapter(this.getContext(), rideArrayList, driverName);
+        final Context context = this.getContext();
         rideArrayList = FactoryBackend.getInstance().availableRides();
-        lv.setAdapter(listAdapter);
+        FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
+            @Override
+            public void OnDataChanged(List<Ride> obj) {
+                if (rideArrayList.size() != 0) {
+                    listAdapter = new ExpandableListAdapter(context, rideArrayList, driverName);
+                    lv.setAdapter(listAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+
+            }
+        });
         return view;
     }
 }

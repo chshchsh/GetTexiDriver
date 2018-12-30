@@ -16,7 +16,9 @@ import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 import com.jct.bd.gettexidriver.model.entities.TypeOfDrive;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -131,10 +133,11 @@ public class FireBase_DB_manager implements IDB_Backend {
 
     @Override
     public List<Ride> dateRides(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD/MM/YYYY");
         List<Ride> driverRides = finishedRides();
         List<Ride> toRemove = new ArrayList<Ride>();
         for (Ride ride : driverRides) {
-            if (ride.getStartDrive() != date)
+            if (ride.getStartDrive() != simpleDateFormat.format(date))
                 toRemove.add(ride);
         }
         driverRides.removeAll(toRemove);
