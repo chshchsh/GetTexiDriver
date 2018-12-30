@@ -128,18 +128,5 @@
                     android:text="@string/take_the_ride"
                     android:textSize="8sp"
                     tools:ignore="SmallSp" />
-
-                <Button
-                    android:id="@+id/buttonFinishDrive"
-                    style="@style/Material"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:drawableTop="@drawable/ic_clear_black_24dp"
-                    android:text="@string/finish_the_ride"
-                    android:textSize="8sp"
-                    android:visibility="invisible"
-                    tools:ignore="SmallSp" />
         </LinearLayout>
 </LinearLayout>

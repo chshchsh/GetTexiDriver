@@ -13,10 +13,11 @@ public interface IDB_Backend {
     public void addDriver(Driver driver,final Action<String> action);
     public List<Ride> availableRides();
     public List<Ride> finishedRides();
-    public List<Ride> specificDriverRides(Driver driver);
+    public List<Ride> specificDriverRides(String driverName);
     public List<Ride> availableRidesOnCity(String city);
     public List<Ride> availableRidesforDriver(Driver driver);
     public List<Ride> dateRides(Date date);
+    public List<Ride> progressRides();
     public List<String> DriversUserName();
     public List<Ride> paymentRides(double payment);
     public void RideBeProgress(Ride ride) throws Exception;

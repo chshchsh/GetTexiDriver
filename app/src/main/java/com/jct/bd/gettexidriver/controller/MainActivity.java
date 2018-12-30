@@ -2,18 +2,25 @@ package com.jct.bd.gettexidriver.controller;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
@@ -25,11 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    Button availableRiedsFragment;
-    Button FinishRidesFragment;
     String driverName;
     String driverEmail;
     String driverPassword;
+    DrawerLayout dl;
+    ActionBarDrawerToggle t;
+    NavigationView nv;
     final private int REQUEST_MULTIPLE_PERMISSIONS = 124;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -38,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AccessContact();
+        HomeFragment homeFragment = new HomeFragment();
+        loadFragment(homeFragment);
         startService(new Intent(MainActivity.this, MyService.class));
         FactoryBackend.getInstance().notifyToDriverList(new NotifyDataChange<List<Driver>>() {
             @Override
@@ -57,28 +67,62 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        FinishRidesFragment = (Button) findViewById(R.id.secondFragment);
-        FinishRidesFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FinishedRidesFragment finishRidesFragment = new FinishedRidesFragment();
-                finishRidesFragment.getIntense(driverName);
-                loadFragment(finishRidesFragment);
+        dl = (DrawerLayout) findViewById(R.id.activityMain);
+        t = new ActionBarDrawerToggle(this,dl,R.string.open,R.string.close){
+            public void onDrawerClosed(View view){
+                getSupportActionBar().setTitle(R.string.open);
+                supportInvalidateOptionsMenu();
             }
-        });
-// get the reference of Button's
-        availableRiedsFragment = (Button) findViewById(R.id.firstFragment);
-// perform setOnClickListener event on First Button
-        availableRiedsFragment.setOnClickListener(new View.OnClickListener() {
+            public void onDrawerOpened(View view){
+                getSupportActionBar().setTitle(R.string.close);
+                supportInvalidateOptionsMenu();
+            }
+        };
+        dl.addDrawerListener(t);
+        t.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        nv = (NavigationView) findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                availableRiedsFragment availableRiedsFragment = new availableRiedsFragment();
-                availableRiedsFragment.getIntance(driverName);
-                loadFragment(availableRiedsFragment);
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.Home:
+                        HomeFragment homeFragment = new HomeFragment();
+                        loadFragment(homeFragment);
+                        return true;
+                    case R.id.availableRides:
+                        availableRiedsFragment availableRiedsFragment = new availableRiedsFragment();
+                        availableRiedsFragment.getIntance(driverName);
+                        loadFragment(availableRiedsFragment);
+                        return true;
+                    case R.id.progressRides:
+                        progressRidesFragment progressRidesFragment = new progressRidesFragment();
+                        progressRidesFragment.getIntance(driverName);
+                        loadFragment(progressRidesFragment);
+                        return true;
+                    case R.id.finishRides:
+                        FinishedRidesFragment finishedRidesFragment = new FinishedRidesFragment();
+                        finishedRidesFragment.getIntance(driverName);
+                        loadFragment(finishedRidesFragment);
+                        return true;
+                    case R.id.signOut:
+                        Toast.makeText(getApplicationContext(), R.string.goodbye,Toast.LENGTH_LONG).show();
+                        finish();
+                        System.exit(0);
+                    default:
+                        return true;
+                }
             }
         });
     }
-    private void loadFragment(Fragment fragment) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(t.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
+    public void loadFragment(Fragment fragment) {
 // create a FragmentManager
       FragmentManager fm = getSupportFragmentManager();
 // create a FragmentTransaction to begin the transaction and replace the Fragment
@@ -88,8 +132,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit(); // save the changes
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void AccessContact()
-    {
+    private void AccessContact() {
         List<String> permissionsNeeded = new ArrayList<String>();
         final List<String> permissionsList = new ArrayList<String>();
         if (!addPermission(permissionsList, Manifest.permission.WRITE_CONTACTS))

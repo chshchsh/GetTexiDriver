@@ -50,9 +50,19 @@
     <string name="length_password">הסיסמא חייבת ליהות 5 תווים לפחות</string>
     <string name="remember_me">תזכור אותי!</string>
     <string name="filter">חפש מרחק מהנוסע בק\"מ</string>
-    <string name="shekel"> ש\"ח</string>
-    <string name="KM"> ק\"מ</string>
+    <string name="shekel">" שח"</string>
+    <string name="KM">" קמ"</string>
     <string name="update">נסיעה עודכנה</string>
     <string name="payment">תשלום:</string>
     <string name="end_drive">סיום נסיעה:</string>
+    <string name="open">פתח</string>
+    <string name="close">סגור</string>
+    <string name="goodbye">להתראות!</string>
+    <string name="welcome_to_driver_gettaxi">נהג ברוך הבא לגט טקסי</string>
+    <string name="signout">התנתק</string>
+    <string name="finish_rides">נסיעות שהסתיימו</string>
+    <string name="progress_rides">נסיעות בתהליך</string>
+    <string name="available_rides">נסיעות פנויות</string>
+    <string name="home">בית</string>
+    <string name="app_driver">אפליקציית נהג</string>
 </resources>

@@ -70,7 +70,25 @@ public class FireBase_DB_manager implements IDB_Backend {
        });
         return rides;
     }
+    @Override
+    public List<Ride> progressRides() {
+        boolean flag = true;
+        notifyToRideList(new NotifyDataChange<List<Ride>>() {
+            @Override
+            public void OnDataChanged(List<Ride> notifyRides) {
+                rides = notifyRides;
+                for (Ride ride : rides) {
+                    if (ride.getDrive() != TypeOfDrive.PROGRESS)
+                        rides.remove(ride);
+                }
+            }
+            @Override
+            public void onFailure(Exception exception) {
 
+            }
+        });
+        return rides;
+    }
     @Override
     public List<Ride> finishedRides() {
         notifyToRideList(new NotifyDataChange<List<Ride>>() {
@@ -91,13 +109,13 @@ public class FireBase_DB_manager implements IDB_Backend {
     }
 
     @Override
-    public List<Ride> specificDriverRides(final Driver driver) {
+    public List<Ride> specificDriverRides(final String driverName) {
         notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> notifyRides) {
                 rides = notifyRides;
                 for (Ride ride : rides) {
-                    if (ride.getDriverName() != driver.getFullName())
+                    if (ride.getDriverName() != driverName)
                         rides.remove(ride);
                 }
             }

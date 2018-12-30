@@ -30,7 +30,7 @@ public class FinishedRidesFragment extends Fragment {
     ListViewAdapter listViewAdapter;
     String driverName;
 
-    public void getIntense(String driverName) {
+    public void getIntance(String driverName) {
         this.driverName = driverName;
     }
 
@@ -39,7 +39,7 @@ public class FinishedRidesFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_finished_rides, container, false);
         finishRides = (ListView) view.findViewById(R.id.FinishedRides);
         final Context context = this.getContext();
-        FinishRides = FactoryBackend.getInstance().finishedRides();
+        FinishRides = FactoryBackend.getInstance().specificDriverRides(driverName);
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {

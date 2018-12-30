@@ -57,5 +57,5 @@
         android:id="@+id/AddContacts"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_contacts_black_24dp" />
+        android:src="@drawable/ic_person_add_black_24dp" />
 </LinearLayout>
