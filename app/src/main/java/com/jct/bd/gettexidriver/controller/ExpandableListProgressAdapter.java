@@ -232,7 +232,7 @@ public class ExpandableListProgressAdapter extends BaseExpandableListAdapter imp
                 // We perform filtering operation
                 List<Ride> nRideList = new ArrayList<Ride>();
 
-                for (Ride ride : rideList) {
+                for (Ride ride : orginRideList) {
                     float distance = (ride.getStartLocation().distanceTo(location.locationA));
                     distance /= 100;
                     int temp = (int)(distance);

@@ -18,7 +18,6 @@ public class MyService extends Service {
         Toast.makeText(getApplicationContext()," Service Create",Toast.LENGTH_LONG);
 
     }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
                 FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {

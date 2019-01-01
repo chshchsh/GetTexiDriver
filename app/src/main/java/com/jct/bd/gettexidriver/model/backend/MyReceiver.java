@@ -31,7 +31,7 @@ public class MyReceiver extends BroadcastReceiver {
             builder.setSmallIcon(R.drawable.ic_directions_car_black_24dp);
             builder.setColor(getColor(context,R.color.bg_login));
         } else {
-            builder.setSmallIcon(R.drawable.drive);
+            builder.setSmallIcon(R.drawable.ic_directions_car_black_24dp);
         }
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1,builder.build());
