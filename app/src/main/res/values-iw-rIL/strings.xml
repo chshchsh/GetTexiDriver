@@ -65,4 +65,6 @@
     <string name="available_rides">נסיעות פנויות</string>
     <string name="home">בית</string>
     <string name="app_driver">אפליקציית נהג</string>
+    <string name="pass_finish">הנסיעה עברה לנסיעות שהסתיימו</string>
+    <string name="pass_progress">הנסיעה עברה לנסיעות בתהליך</string>
 </resources>

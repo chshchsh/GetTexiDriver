@@ -2,6 +2,7 @@ package com.jct.bd.gettexidriver.controller;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -24,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
 import com.jct.bd.gettexidriver.model.entities.Driver;
@@ -213,24 +215,28 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                FireBase_DB_manager backend = new FireBase_DB_manager();
-                                backend.addDriver(driver, new Action<String>() {
+                                new AsyncTask<Void,Void,Void>() {
                                     @Override
-                                    public void onSuccess(String obj) {
-                                        register.setEnabled(true);
-                                        Toast.makeText(getBaseContext(), getString(R.string.insert) + obj, Toast.LENGTH_LONG).show();
-                                    }
+                                    protected Void doInBackground(Void... voids) {
+                                        return FactoryBackend.getInstance().addDriver(driver, new Action<String>() {
+                                            @Override
+                                            public void onSuccess(String obj) {
+                                                register.setEnabled(true);
+                                                Toast.makeText(getBaseContext(), getString(R.string.insert) + obj, Toast.LENGTH_LONG).show();
+                                            }
 
-                                    @Override
-                                    public void onFailure(Exception exception) {
-                                        Toast.makeText(getBaseContext(), getString(R.string.error) + exception.getMessage(), Toast.LENGTH_LONG).show();
-                                    }
+                                            @Override
+                                            public void onFailure(Exception exception) {
+                                                Toast.makeText(getBaseContext(), getString(R.string.error) + exception.getMessage(), Toast.LENGTH_LONG).show();
+                                            }
 
-                                    public void onProgress(String status, double percent) {
-                                        if (percent != 100)
-                                            register.setEnabled(false);
+                                            public void onProgress(String status, double percent) {
+                                                if (percent != 100)
+                                                    register.setEnabled(false);
+                                            }
+                                        });
                                     }
-                                });
+                                }.execute();
                                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                             } else {
                                 Toast.makeText(RegisterActivity.this, R.string.firebase_error, Toast.LENGTH_SHORT).show();

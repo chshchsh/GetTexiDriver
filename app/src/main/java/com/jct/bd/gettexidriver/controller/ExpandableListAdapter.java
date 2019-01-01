@@ -3,6 +3,7 @@ package com.jct.bd.gettexidriver.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,23 +142,28 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 Date date = Calendar.getInstance().getTime();
                 ride.setStartDrive(simpleDateFormat.format(date));
                 ride.setDriverName(driverName);
-                FactoryBackend.getInstance().updateRide(ride, new Action<String>() {
+                new AsyncTask<Void,Void,Void>() {
                     @Override
-                    public void onSuccess(String obj) {
-                        Toast.makeText(context, R.string.update, Toast.LENGTH_LONG).show();
-                    }
+                    protected Void doInBackground(Void... voids) {
+                        return FactoryBackend.getInstance().updateRide(ride, new Action<String>() {
+                            @Override
+                            public void onSuccess(String obj) {
+                                Toast.makeText(context, R.string.update, Toast.LENGTH_LONG).show();
+                            }
 
-                    @Override
-                    public void onFailure(Exception exception) {
-                        Toast.makeText(context, exception.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                            @Override
+                            public void onFailure(Exception exception) {
 
-                    @Override
-                    public void onProgress(String status, double percent) {
+                            }
 
+                            @Override
+                            public void onProgress(String status, double percent) {
+
+                            }
+                        });
                     }
-                });
-                Toast.makeText(context,"the ride pass to progress rides",Toast.LENGTH_LONG).show();
+                }.execute();
+                Toast.makeText(context, R.string.pass_progress,Toast.LENGTH_LONG).show();
             }
         });
         viewHolder2.messageButton.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +243,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                     distance /= 100;
                     int temp = (int)(distance);
                     distance = (float)(temp) / 10;
-                    if (distance >= Float.valueOf(constraint.toString()))
+                    if (distance <= Float.valueOf(constraint.toString()))
                         nRideList.add(ride);
                 }
                 results.values = nRideList;

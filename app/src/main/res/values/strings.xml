@@ -67,4 +67,6 @@
     <string name="available_rides">available rides</string>
     <string name="home">Home</string>
     <string name="app_driver">App Driver</string>
+    <string name="pass_finish">the ride pass to finish rides</string>
+    <string name="pass_progress">the ride pass to progress rides</string>
 </resources>

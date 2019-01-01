@@ -30,7 +30,6 @@ public class MyService extends Service {
 
                     @Override
                     public void onFailure(Exception exception) {
-                        Toast.makeText(getBaseContext(), "error to get rides list\n" + exception.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
         return START_STICKY;

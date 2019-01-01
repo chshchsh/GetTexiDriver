@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         AccessContact();
         HomeFragment homeFragment = new HomeFragment();
         loadFragment(homeFragment);
-        startService(new Intent(MainActivity.this, MyService.class));
         FactoryBackend.getInstance().notifyToDriverList(new NotifyDataChange<List<Driver>>() {
             @Override
             public void OnDataChanged(List<Driver> drivers) {
@@ -108,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.signOut:
                         Toast.makeText(getApplicationContext(), R.string.goodbye,Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
                         finish();
-                        System.exit(0);
                     default:
                         return true;
                 }

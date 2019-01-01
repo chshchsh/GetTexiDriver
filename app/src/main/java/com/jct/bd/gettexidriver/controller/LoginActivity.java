@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.model.backend.MyService;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        startService(new Intent(LoginActivity.this, MyService.class));
         findViews();
     }
     public void findViews(){

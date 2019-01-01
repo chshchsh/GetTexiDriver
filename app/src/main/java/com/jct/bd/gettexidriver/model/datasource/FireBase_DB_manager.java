@@ -9,8 +9,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.jct.bd.gettexidriver.model.backend.CurentLocation;
 import com.jct.bd.gettexidriver.model.backend.IDB_Backend;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
@@ -18,7 +16,6 @@ import com.jct.bd.gettexidriver.model.entities.TypeOfDrive;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +31,7 @@ public class FireBase_DB_manager implements IDB_Backend {
 
 
     @Override
-    public void addDriver(final Driver driver, final Action<String> action) {
+    public Void addDriver(final Driver driver, final Action<String> action) {
         String key = driver.getId();
         DriveRef.child(key).setValue(driver).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -49,6 +46,7 @@ public class FireBase_DB_manager implements IDB_Backend {
                 action.onProgress("error upload Driver data", 100);
             }
         });
+        return null;
     }
 
     @Override
@@ -303,7 +301,7 @@ public class FireBase_DB_manager implements IDB_Backend {
         }
     }
     @Override
-    public void updateRide(final Ride toUpdate, final Action<String> action) {
+    public Void updateRide(final Ride toUpdate, final Action<String> action) {
         final String key = (toUpdate.getId());
         RideRef.child(key).setValue(toUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -318,6 +316,7 @@ public class FireBase_DB_manager implements IDB_Backend {
                 action.onProgress("error upload Driver data", 100);
             }
         });
+        return null;
     }
 
 }

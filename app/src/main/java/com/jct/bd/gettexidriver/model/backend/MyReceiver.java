@@ -1,6 +1,5 @@
 package com.jct.bd.gettexidriver.model.backend;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -10,7 +9,9 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.controller.LoginActivity;
 import com.jct.bd.gettexidriver.controller.MainActivity;
+import com.jct.bd.gettexidriver.controller.availableRiedsFragment;
 
 import static android.support.v4.content.ContextCompat.getColor;
 
@@ -18,7 +19,7 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context,MainActivity.class),0);
+                new Intent(context, LoginActivity.class),0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(R.string.relevent_ride))
