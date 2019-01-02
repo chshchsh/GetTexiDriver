@@ -113,7 +113,7 @@ public class FireBase_DB_manager implements IDB_Backend {
             public void OnDataChanged(List<Ride> notifyRides) {
                 rides = notifyRides;
                 for (Ride ride : rides) {
-                    if (ride.getDriverName() != driverName)
+                    if (!driverName.equals(ride.getDriverName()))
                         rides.remove(ride);
                 }
             }
@@ -208,7 +208,6 @@ public class FireBase_DB_manager implements IDB_Backend {
     }
 
     private static ChildEventListener rideRefChildEventListener;
-
     public void notifyToRideList(final NotifyDataChange<List<Ride>> notifyDataChange) {
         if (notifyDataChange != null) {
             if (rideRefChildEventListener != null) {
@@ -228,19 +227,15 @@ public class FireBase_DB_manager implements IDB_Backend {
                     rides.add(ride);
                    notifyDataChange.OnDataChanged(rides);
                 }
-
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 }
-
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                 }
-
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     notifyDataChange.onFailure(databaseError.toException());
