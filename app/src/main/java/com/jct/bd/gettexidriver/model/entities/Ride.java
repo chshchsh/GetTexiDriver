@@ -18,6 +18,7 @@ public class Ride {
     private MyLocation endLocation;
     private String phone;
     private String driverName;
+    private Date whenLoadToFirebase;
 
 
     public Ride(TypeOfDrive drive, String id, String email, String name, String startDrive, String endDrive, MyLocation startLocation, MyLocation endLocation, String phone) {
@@ -148,4 +149,11 @@ public class Ride {
         this.driverName = driverName;
     }
 
+    public Date getWhenLoadToFirebase() {
+        return whenLoadToFirebase;
+    }
+
+    public void setWhenLoadToFirebase(Date whenLoadToFirebase) {
+        this.whenLoadToFirebase = whenLoadToFirebase;
+    }
 }

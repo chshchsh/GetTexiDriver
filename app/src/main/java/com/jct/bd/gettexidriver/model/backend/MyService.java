@@ -27,10 +27,16 @@ public class MyService extends Service {
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {
-                Intent intent = new Intent(MyService.this, MyReceiver.class);
-                sendBroadcast(intent);
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.SECOND,-10);
+                Date date = calendar.getTime();
+                for (Ride ride : obj) {
+                    if (ride.getWhenLoadToFirebase().after(date)) {
+                        Intent intent = new Intent(MyService.this, MyReceiver.class);
+                        sendBroadcast(intent);
+                    }
+                }
             }
-
             @Override
             public void onFailure(Exception exception) {
             }

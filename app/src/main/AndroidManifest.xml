@@ -32,8 +32,7 @@ package="com.jct.bd.gettexidriver">
     <receiver
         android:name=".model.backend.MyReceiver">
         <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" >
-        </action>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
         </intent-filter>
     </receiver>
     <service
