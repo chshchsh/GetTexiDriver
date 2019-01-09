@@ -10,9 +10,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.jct.bd.gettexidriver.R;
-import com.jct.bd.gettexidriver.controller.LoginActivity;
-import com.jct.bd.gettexidriver.controller.MainActivity;
-import com.jct.bd.gettexidriver.controller.availableRiedsFragment;
+import com.jct.bd.gettexidriver.controller.Activities.LoginActivity;
 
 import static android.support.v4.content.ContextCompat.getColor;
 

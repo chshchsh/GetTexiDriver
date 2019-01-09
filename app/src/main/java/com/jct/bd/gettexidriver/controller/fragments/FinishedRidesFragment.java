@@ -1,14 +1,7 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.fragments;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.controller.Adapters.ListViewAdapter;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FinishedRidesFragment extends Fragment {

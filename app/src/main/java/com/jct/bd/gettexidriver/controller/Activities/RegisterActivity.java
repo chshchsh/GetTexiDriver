@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.Action;
-import com.jct.bd.gettexidriver.model.datasource.FireBase_DB_manager;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 
 import static com.jct.bd.gettexidriver.model.entities.Ride.IDCheck;

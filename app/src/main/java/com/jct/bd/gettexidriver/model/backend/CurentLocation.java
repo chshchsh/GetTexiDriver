@@ -16,9 +16,14 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
+import com.jct.bd.gettexidriver.controller.fragments.availableRiedsFragment;
+import com.jct.bd.gettexidriver.model.entities.MyLocation;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import static com.jct.bd.gettexidriver.controller.fragments.availableRiedsFragment.listAdapter;
 
 public class CurentLocation {
     Context context;
@@ -26,16 +31,21 @@ public class CurentLocation {
     boolean isNetworkEnabled;
     LocationManager locationManager;
     LocationListener locationListener;
-    public static Location locationA = new Location("A");
+    public static MyLocation locationA = new MyLocation();
 
     public CurentLocation(Context context) {
         this.context = context;
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                if (isGPSEnabled)
+                if (isGPSEnabled) {
+                    listAdapter.notifyDataSetChanged();
                     locationA.set(location);
-                if (isNetworkEnabled)
+                }
+                if (isNetworkEnabled) {
                     locationA.set(location);
+                    listAdapter.notifyDataSetChanged();
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -50,7 +60,6 @@ public class CurentLocation {
     }
 
     public void getLocation(Context context) {
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         int locationOff = 0;
         try {
             //gets the status mode of the location's settings in the device

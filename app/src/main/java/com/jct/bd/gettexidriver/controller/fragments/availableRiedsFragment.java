@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.controller.Adapters.ExpandableListAdapter;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Ride;
@@ -19,9 +20,9 @@ import com.jct.bd.gettexidriver.model.entities.Ride;
 import java.util.ArrayList;
 import java.util.List;
 
-public class progressRidesFragment extends Fragment {
+public class availableRiedsFragment extends Fragment {
     View view;
-    ExpandableListProgressAdapter listAdapter;
+    public static ExpandableListAdapter listAdapter;
     EditText distanceFilter;
     String driverName;
     private ExpandableListView lv;
@@ -61,13 +62,14 @@ public class progressRidesFragment extends Fragment {
             }
         });
         final Context context = this.getContext();
-        rideArrayList = FactoryBackend.getInstance().progressRides();
+        rideArrayList = FactoryBackend.getInstance().availableRides();
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {
                 if (rideArrayList.size() != 0) {
-                    listAdapter = new ExpandableListProgressAdapter(context, rideArrayList, driverName);
+                    listAdapter = new ExpandableListAdapter(context, rideArrayList, driverName);
                     lv.setAdapter(listAdapter);
+                    listAdapter.notifyDataSetChanged();
                 }
             }
 

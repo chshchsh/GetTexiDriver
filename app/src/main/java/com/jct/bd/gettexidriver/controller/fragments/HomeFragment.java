@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.fragments;
 
 import android.content.Context;
 import android.net.Uri;

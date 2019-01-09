@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".controller.progressRidesFragment">
+    tools:context=".controller.fragments.progressRidesFragment">
 
     <EditText
         android:id="@+id/distanceFilter"

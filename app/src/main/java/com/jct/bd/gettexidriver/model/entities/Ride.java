@@ -3,7 +3,6 @@ package com.jct.bd.gettexidriver.model.entities;
 
 import com.google.firebase.database.Exclude;
 import com.jct.bd.gettexidriver.R;
-import com.jct.bd.gettexidriver.model.backend.MyLocation;
 
 import java.util.Date;
 

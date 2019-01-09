@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,21 +20,20 @@ import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter implements Filterable{
+public class ExpandableListProgressAdapter extends BaseExpandableListAdapter implements Filterable{
     private Context context;
     String driverName;
     Filter distanceFilter;
     private List<Ride> rideList;
     private List<Ride> orginRideList;
     CurentLocation location;
-    public ExpandableListAdapter(Context context, List<Ride> rideList,String driverName) {
+    public ExpandableListProgressAdapter(Context context, List<Ride> rideList,String driverName) {
         this.context = context;
         this.rideList = rideList;
         this.driverName = driverName;
@@ -83,16 +82,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         // Get the data item for this position
         Ride ride = (Ride) getGroup(groupPosition);
         // Check if an existing view is being reused, otherwise inflate the view
-        ExpandableListAdapter.ViewHolder viewHolder;
+        ExpandableListProgressAdapter.ViewHolder viewHolder;
         if (convertView == null) {
-            viewHolder = new ExpandableListAdapter.ViewHolder();
+            viewHolder = new ExpandableListProgressAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.list_group, null);
             viewHolder.destination = (TextView) convertView.findViewById(R.id.destination);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.distance);
             convertView.setTag(viewHolder); // view lookup cache stored in tag
         } else {
-            viewHolder = (ExpandableListAdapter.ViewHolder) convertView.getTag();
+            viewHolder = (ExpandableListProgressAdapter.ViewHolder) convertView.getTag();
         }
         // Populate the data into the template view using the data object
         viewHolder.destination.setText(location.getPlace(ride.getEndLocation(),context));
@@ -107,18 +106,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final Ride ride = (Ride) getChild(groupPosition,childPosition);
-        final ExpandableListAdapter.ViewHolder2 viewHolder2;
+        final ExpandableListProgressAdapter.ViewHolder2 viewHolder2;
         if(convertView == null){
-            viewHolder2 = new ExpandableListAdapter.ViewHolder2();
+            viewHolder2 = new ExpandableListProgressAdapter.ViewHolder2();
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.ride_item, null);
+            convertView = inflater.inflate(R.layout.ride_progress_item, null);
             viewHolder2.full_name = (TextView) convertView.findViewById(R.id.nameInput);
             viewHolder2.idNumber = (TextView) convertView.findViewById(R.id.idInput);
             viewHolder2.source = (TextView) convertView.findViewById(R.id.sourceInput);
             viewHolder2.callButton = (Button) convertView.findViewById(R.id.buttonCall);
             viewHolder2.emailButton = (Button) convertView.findViewById(R.id.buttonEmail);
             viewHolder2.messageButton = (Button) convertView.findViewById(R.id.buttonMessage);
-            viewHolder2.startButton = (Button) convertView.findViewById(R.id.buttonTakeDrive);
+            viewHolder2.finishButton = (Button) convertView.findViewById(R.id.buttonFinishDrive);
             convertView.setTag(viewHolder2);
         }else {
             viewHolder2 = (ViewHolder2) convertView.getTag();
@@ -126,22 +125,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         viewHolder2.source.setText(location.getPlace(ride.getStartLocation(),context));
         viewHolder2.idNumber.setText(ride.getId());
         viewHolder2.full_name.setText(ride.getName());
-        viewHolder2.startButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder2.finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String smsText = context.getString(R.string.Taxi_on_the_way);
-                Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:" + ride.getPhone()));
-                smsIntent.putExtra("sms_body", smsText);
-                context.startActivity(smsIntent);
                 try {
-                    FactoryBackend.getInstance().RideBeProgress(ride);
+                    FactoryBackend.getInstance().RideBeFinish(ride);
                 } catch (Exception e) {
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = Calendar.getInstance().getTime();
-                ride.setStartDrive(simpleDateFormat.format(date));
-                ride.setDriverName(driverName);
+                ride.setEndDrive(simpleDateFormat.format(date));
                 new AsyncTask<Void,Void,Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
@@ -163,7 +157,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                         });
                     }
                 }.execute();
-                Toast.makeText(context, R.string.pass_progress,Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.pass_finish,Toast.LENGTH_LONG).show();
             }
         });
         viewHolder2.messageButton.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +210,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         Button callButton;
         Button messageButton;
         Button emailButton;
-        Button startButton;
+        Button finishButton;
     }
     public void resetData() {
         rideList = orginRideList;
@@ -237,6 +231,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
             else {
                 // We perform filtering operation
                 List<Ride> nRideList = new ArrayList<Ride>();
+
                 for (Ride ride : orginRideList) {
                     float distance = (ride.getStartLocation().distanceTo(location.locationA));
                     distance /= 100;

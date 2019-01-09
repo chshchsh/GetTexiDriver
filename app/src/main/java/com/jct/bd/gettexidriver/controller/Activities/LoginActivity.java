@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.Activities;
 
 import android.content.Context;
 import android.content.Intent;

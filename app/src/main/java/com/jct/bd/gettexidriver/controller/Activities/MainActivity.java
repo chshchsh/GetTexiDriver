@@ -1,8 +1,7 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.Activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,12 +18,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.controller.fragments.FinishedRidesFragment;
+import com.jct.bd.gettexidriver.controller.fragments.HomeFragment;
+import com.jct.bd.gettexidriver.controller.fragments.availableRiedsFragment;
+import com.jct.bd.gettexidriver.controller.fragments.progressRidesFragment;
+import com.jct.bd.gettexidriver.model.backend.CurentLocation;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
-import com.jct.bd.gettexidriver.model.backend.MyService;
 import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 
@@ -89,21 +91,37 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.Home:
                         HomeFragment homeFragment = new HomeFragment();
                         loadFragment(homeFragment);
+                        dl.closeDrawers();
+                        getSupportActionBar().setTitle(R.string.close);
+                        supportInvalidateOptionsMenu();
+                        dl.addDrawerListener(t);
                         return true;
                     case R.id.availableRides:
                         availableRiedsFragment availableRiedsFragment = new availableRiedsFragment();
                         availableRiedsFragment.getIntance(driverName);
                         loadFragment(availableRiedsFragment);
+                        dl.closeDrawers();
+                        getSupportActionBar().setTitle(R.string.close);
+                        supportInvalidateOptionsMenu();
+                        dl.addDrawerListener(t);
                         return true;
                     case R.id.progressRides:
                         progressRidesFragment progressRidesFragment = new progressRidesFragment();
                         progressRidesFragment.getIntance(driverName);
                         loadFragment(progressRidesFragment);
+                        dl.closeDrawers();
+                        getSupportActionBar().setTitle(R.string.close);
+                        supportInvalidateOptionsMenu();
+                        dl.addDrawerListener(t);
                         return true;
                     case R.id.finishRides:
                         FinishedRidesFragment finishedRidesFragment = new FinishedRidesFragment();
                         finishedRidesFragment.getIntance(driverName);
                         loadFragment(finishedRidesFragment);
+                        dl.closeDrawers();
+                        getSupportActionBar().setTitle(R.string.close);
+                        supportInvalidateOptionsMenu();
+                        dl.addDrawerListener(t);
                         return true;
                     case R.id.signOut:
                         Toast.makeText(getApplicationContext(), R.string.goodbye,Toast.LENGTH_LONG).show();
@@ -122,11 +140,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void loadFragment(Fragment fragment) {
-// create a FragmentManager
-      FragmentManager fm = getSupportFragmentManager();
-// create a FragmentTransaction to begin the transaction and replace the Fragment
+        // create a FragmentManager
+        FragmentManager fm = getSupportFragmentManager();
+        // create a FragmentTransaction to begin the transaction and replace the Fragment
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-// replace the FrameLayout with new Fragment
+        // replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit(); // save the changes
     }

@@ -1,4 +1,4 @@
-package com.jct.bd.gettexidriver.controller;
+package com.jct.bd.gettexidriver.controller.Adapters;
 
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -17,13 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jct.bd.gettexidriver.R;
+import com.jct.bd.gettexidriver.controller.fragments.FinishedRidesFragment;
 import com.jct.bd.gettexidriver.model.backend.CurentLocation;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
 import java.util.ArrayList;
 
 
-class ListViewAdapter extends BaseAdapter {
+public class ListViewAdapter extends BaseAdapter {
     Context context;
 
     public ListViewAdapter(Context context) {
