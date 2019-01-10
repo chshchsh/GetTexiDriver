@@ -36,7 +36,7 @@
     <string name="error">Error</string>
     <string name="account">have you account? login her!</string>
     <string name="fill_email">please fill the email field!</string>
-    <string name="contains">the email must contains @</string>
+    <string name="contains">the email is not make sense</string>
     <string name="fill_id">please fill the id number field!</string>
     <string name="fill_password">please fill the password field!</string>
     <string name="fill_userName">please fill the user name field!</string>
@@ -48,7 +48,7 @@
     <string name="dont_have_you_account_register_her">Dont have you account? register her!</string>
     <string name="Extract_id">this id not exists</string>
     <string name="length_id">the id length must be 9</string>
-    <string name="length_phone">the length of the phone number is not make sense</string>
+    <string name="length_phone">the phone number is not make sense</string>
     <string name="length_password">the password must be longer then five letters</string>
     <string name="remember_me">remember me!</string>
     <string name="filter">distance from the raid Filter(KM)</string>

@@ -13,6 +13,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Patterns;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -81,17 +82,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         login.setText(ss);
         login.setMovementMethod(LinkMovementMethod.getInstance());
     }
+
     private boolean validateEmail(){
         String emailInput = InputEmail.getEditText().getText().toString();
         if(emailInput.isEmpty()){
             InputEmail.setError(getString(R.string.fill_email));
-            InputIdNumber.setErrorEnabled(true);
+            InputEmail.setErrorEnabled(true);
             email.requestFocus();
             Toast.makeText(this,getString(R.string.fill_email),Toast.LENGTH_LONG).show();
             return false;
-        }else if (!emailInput.contains("@")){
-            InputIdNumber.setErrorEnabled(true);
-            InputIdNumber.setError(getString(R.string.contains));
+        }else if (Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
+            InputEmail.setErrorEnabled(true);
+            InputEmail.setError(getString(R.string.contains));
             email.requestFocus();
             Toast.makeText(this,getString(R.string.contains),Toast.LENGTH_LONG).show();
             return false;
@@ -181,7 +183,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             InputPhone.setErrorEnabled(true);
             Toast.makeText(this,getString(R.string.fill_phone),Toast.LENGTH_LONG).show();
             return false;
-        }else if(phoneInput.length()!=9||phoneInput.length()!=10){
+        }else if(Patterns.PHONE.matcher(phoneInput).matches()){
             InputPhone.setError(getString(R.string.length_phone));
             phoneNumber.requestFocus();
             InputPhone.setErrorEnabled(true);

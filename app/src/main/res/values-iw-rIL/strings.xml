@@ -34,7 +34,7 @@
     <string name="error">שגיאה</string>
     <string name="account">יש לך חשבון כבר? התחבר כאן!</string>
     <string name="fill_email">בבקשה מלא את שדה האימייל</string>
-    <string name="contains">האיימיל חייב להכיל @</string>
+    <string name="contains">האיימיל אינו תקין</string>
     <string name="fill_id">בבקשה מלא את השדה של התז!</string>
     <string name="fill_password">בבקשה מלא את השדה סיסמא!</string>
     <string name="fill_userName">בבקשה מלא את השדה שם משתמש!</string>
@@ -46,7 +46,7 @@
     <string name="dont_have_you_account_register_her">אין לך חשבון עדיין? הירשם כאן!</string>
     <string name="Extract_id">התז הזה אינו קיים</string>
     <string name="length_id">התז חייב ליהות באורך 9</string>
-    <string name="length_phone">האורך של מספר הטלפון לא הגיוני</string>
+    <string name="length_phone">מספר הטלפון שלך לא הגיוני</string>
     <string name="length_password">הסיסמא חייבת ליהות 5 תווים לפחות</string>
     <string name="remember_me">תזכור אותי!</string>
     <string name="filter">חפש מרחק מהנוסע בק\"מ</string>
