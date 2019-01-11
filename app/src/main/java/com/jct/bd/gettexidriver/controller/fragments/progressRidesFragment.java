@@ -16,6 +16,7 @@ import com.jct.bd.gettexidriver.controller.Adapters.ExpandableListProgressAdapte
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Ride;
+import com.jct.bd.gettexidriver.model.entities.TypeOfDrive;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +63,14 @@ public class progressRidesFragment extends Fragment {
             }
         });
         final Context context = this.getContext();
-        rideArrayList = FactoryBackend.getInstance().progressRides();
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {
+                rideArrayList = obj;
+                for (Ride ride : rideArrayList) {
+                    if (ride.getDrive() != TypeOfDrive.PROGRESS)
+                        rideArrayList.remove(ride);
+                }
                 if (rideArrayList.size() != 0) {
                     listAdapter = new ExpandableListProgressAdapter(context, rideArrayList, driverName);
                     lv.setAdapter(listAdapter);

@@ -32,13 +32,17 @@ public class FinishedRidesFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_finished_rides, container, false);
         finishRides = (ListView) view.findViewById(R.id.FinishedRides);
         final Context context = this.getContext();
-        FinishRides = FactoryBackend.getInstance().specificDriverRides(driverName);
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {
+                for (Ride ride : obj) {
+                    if (!driverName.equals(ride.getDriverName()))
+                        obj.remove(ride);
+                }
+                FinishRides = obj;
                 if (FinishRides.size() != 0) {
-                    finishRides.setAdapter(listViewAdapter);
                     listViewAdapter = new ListViewAdapter(context);
+                    finishRides.setAdapter(listViewAdapter);
                 }
             }
 

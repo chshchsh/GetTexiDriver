@@ -132,10 +132,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         viewHolder2.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String smsText = context.getString(R.string.Taxi_on_the_way);
-                Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:" + ride.getPhone()));
-                smsIntent.putExtra("sms_body", smsText);
-                context.startActivity(smsIntent);
+                String uri = "waze://?ll="+ride.getEndLocation().getLatitude()+", "+ride.getEndLocation().getLongitude()+"&navigate=yes";
+                context.startActivity(new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(uri)));
                 try {
                     FactoryBackend.getInstance().RideBeProgress(ride);
                 } catch (Exception e) {
@@ -167,6 +166,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                     }
                 }.execute();
                 Toast.makeText(context, R.string.pass_progress,Toast.LENGTH_LONG).show();
+//                String smsText = context.getString(R.string.Taxi_on_the_way);
+//                Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:" + ride.getPhone()));
+//                smsIntent.putExtra("sms_body", smsText);
+//                context.startActivity(smsIntent);
             }
         });
         viewHolder2.messageButton.setOnClickListener(new View.OnClickListener() {

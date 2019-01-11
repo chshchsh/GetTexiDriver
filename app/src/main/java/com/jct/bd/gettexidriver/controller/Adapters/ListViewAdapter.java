@@ -58,8 +58,6 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        }
         final ViewHolder viewHolder;
         final Ride ride = FinishedRidesFragment.FinishRides.get(position);
         if (convertView == null) {
