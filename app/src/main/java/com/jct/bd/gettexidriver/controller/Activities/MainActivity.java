@@ -13,6 +13,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -91,45 +92,28 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.Home:
                         HomeFragment homeFragment = new HomeFragment();
                         loadFragment(homeFragment);
-                        dl.closeDrawers();
-                        getSupportActionBar().setTitle(R.string.close);
-                        supportInvalidateOptionsMenu();
-                        dl.addDrawerListener(t);
-                        return true;
                     case R.id.availableRides:
                         availableRiedsFragment availableRiedsFragment = new availableRiedsFragment();
                         availableRiedsFragment.getIntance(driverName);
                         loadFragment(availableRiedsFragment);
-                        dl.closeDrawers();
-                        getSupportActionBar().setTitle(R.string.close);
-                        supportInvalidateOptionsMenu();
-                        dl.addDrawerListener(t);
-                        return true;
                     case R.id.progressRides:
                         progressRidesFragment progressRidesFragment = new progressRidesFragment();
                         progressRidesFragment.getIntance(driverName);
                         loadFragment(progressRidesFragment);
-                        dl.closeDrawers();
-                        getSupportActionBar().setTitle(R.string.close);
-                        supportInvalidateOptionsMenu();
-                        dl.addDrawerListener(t);
-                        return true;
                     case R.id.finishRides:
                         FinishedRidesFragment finishedRidesFragment = new FinishedRidesFragment();
                         finishedRidesFragment.getIntance(driverName);
                         loadFragment(finishedRidesFragment);
-                        dl.closeDrawers();
-                        getSupportActionBar().setTitle(R.string.close);
-                        supportInvalidateOptionsMenu();
-                        dl.addDrawerListener(t);
-                        return true;
                     case R.id.signOut:
                         Toast.makeText(getApplicationContext(), R.string.goodbye,Toast.LENGTH_LONG).show();
                         startActivity(new Intent(MainActivity.this,LoginActivity.class));
                         finish();
-                    default:
-                        return true;
                 }
+                dl.closeDrawer(GravityCompat.START);
+                getSupportActionBar().setTitle(R.string.close);
+                supportInvalidateOptionsMenu();
+                dl.addDrawerListener(t);
+                return true;
             }
         });
     }
