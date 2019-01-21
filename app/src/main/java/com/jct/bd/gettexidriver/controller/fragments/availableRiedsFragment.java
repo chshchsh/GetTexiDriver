@@ -71,11 +71,9 @@ public class availableRiedsFragment extends Fragment {
                     if (ride.getDrive() != TypeOfDrive.AVAILABLE)
                         rideArrayList.remove(ride);
                 }
-                if (rideArrayList.size() != 0) {
                     listAdapter = new ExpandableListAdapter(context, rideArrayList, driverName);
                     lv.setAdapter(listAdapter);
                     listAdapter.notifyDataSetChanged();
-                }
             }
 
             @Override

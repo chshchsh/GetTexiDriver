@@ -14,11 +14,12 @@ import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FinishedRidesFragment extends Fragment {
     View view;
-    public static List<Ride> FinishRides;
+    public static List<Ride> FinishRides = new ArrayList<>();
     ListView finishRides;
     ListViewAdapter listViewAdapter;
     String driverName;

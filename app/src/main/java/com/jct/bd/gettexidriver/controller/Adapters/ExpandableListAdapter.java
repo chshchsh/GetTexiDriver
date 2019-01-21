@@ -132,7 +132,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         viewHolder2.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uri = "waze://?ll="+ride.getEndLocation().getLatitude()+", "+ride.getEndLocation().getLongitude()+"&navigate=yes";
+                String uri = "waze://?ll="+ride.getStartLocation().getLatitude()+", "+ride.getStartLocation().getLongitude()+"&navigate=yes";
                 context.startActivity(new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse(uri)));
                 try {
