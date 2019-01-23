@@ -24,16 +24,26 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.jct.bd.gettexidriver.controller.fragments.availableRiedsFragment.listAdapter;
-
-public class CurentLocation {
-    static Context context;
+/**
+ * <h1>funcs on the location funcs</h1></h1>
+ * The CurrentLocation is class that is responsibility to all the funcs and listeners
+ of that works with location.
+ * @author  David Elkayam and Nath Ascoli
+ * @version 1.0
+ * @since   2019-01-23
+ */
+public class CurrentLocation {
+    public static Context context;
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
     LocationManager locationManager;
     LocationListener locationListener;
     public static MyLocation locationA = new MyLocation();
-
-    public CurentLocation(Context context) {
+    /**
+     * This is the constructor of CurrentLocation
+     * @param context This is the context to run funcs that you must you on context
+     */
+    public CurrentLocation(Context context) {
         this.context = context;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -58,8 +68,36 @@ public class CurentLocation {
             }
         };
     }
+    /**
+     * This method is used to get location and convert it to name of location
+     on this method you get only the name of the city;
+     *@return the string that he the name of the city of the location
+     */
+    public static String getPlace(Location location) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-    public void getLocation(Context context) {
+            if (addresses.size() > 0) {
+                String cityName = addresses.get(0).getAddressLine(0);
+                return cityName;
+            }
+
+            return "no place: \n (" + location.getLongitude() + " , " + location.getLatitude() + ")";
+        } catch (
+                IOException e)
+
+        {
+            e.printStackTrace();
+        }
+        return "IOException ...";
+    }
+    /**
+     * This method is used to find the current location of the phone right now
+     when he find the location he put it on LocationA that he static field .
+     */
+    public void getLocation() {
         int locationOff = 0;
         try {
             //gets the status mode of the location's settings in the device
@@ -94,26 +132,5 @@ public class CurentLocation {
                 Toast.makeText(context, "Error: " + e, Toast.LENGTH_SHORT).show();
             }
         }
-    }
-    //this func get location and convert it to name of location
-    public static String getPlace(Location location) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        List<Address> addresses = null;
-        try {
-            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
-            if (addresses.size() > 0) {
-                String cityName = addresses.get(0).getAddressLine(0);
-                return cityName;
-            }
-
-            return "no place: \n (" + location.getLongitude() + " , " + location.getLatitude() + ")";
-        } catch (
-                IOException e)
-
-        {
-            e.printStackTrace();
-        }
-        return "IOException ...";
     }
 }

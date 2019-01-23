@@ -4,7 +4,6 @@ import android.location.Location;
 
 import com.google.firebase.database.Exclude;
 import com.jct.bd.gettexidriver.R;
-import com.jct.bd.gettexidriver.model.backend.CurentLocation;
 
 
 public class Driver {

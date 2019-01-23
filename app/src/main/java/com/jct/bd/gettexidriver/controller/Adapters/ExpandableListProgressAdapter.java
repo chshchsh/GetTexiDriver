@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jct.bd.gettexidriver.R;
-import com.jct.bd.gettexidriver.model.backend.CurentLocation;
+import com.jct.bd.gettexidriver.model.backend.CurrentLocation;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.Action;
 import com.jct.bd.gettexidriver.model.entities.Ride;
@@ -32,14 +32,14 @@ public class ExpandableListProgressAdapter extends BaseExpandableListAdapter imp
     Filter distanceFilter;
     private List<Ride> rideList;
     private List<Ride> orginRideList;
-    CurentLocation location;
+    CurrentLocation location;
     public ExpandableListProgressAdapter(Context context, List<Ride> rideList,String driverName) {
         this.context = context;
         this.rideList = rideList;
         this.driverName = driverName;
         this.orginRideList = rideList;
-        location = new CurentLocation(context);
-        location.getLocation(context);
+        location = new CurrentLocation(context);
+        location.getLocation();
     }
 
     @Override

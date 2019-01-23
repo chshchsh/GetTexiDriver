@@ -1,1 +1,7 @@
+com.jct.bd.gettexidriver
+com.jct.bd.gettexidriver.controller.Activities
+com.jct.bd.gettexidriver.controller.Adapters
+com.jct.bd.gettexidriver.controller.fragments
+com.jct.bd.gettexidriver.model.backend
 com.jct.bd.gettexidriver.model.datasource
+com.jct.bd.gettexidriver.model.entities

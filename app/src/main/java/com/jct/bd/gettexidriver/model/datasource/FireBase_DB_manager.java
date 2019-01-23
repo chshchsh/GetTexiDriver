@@ -8,7 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.jct.bd.gettexidriver.model.backend.CurentLocation;
+import com.jct.bd.gettexidriver.model.backend.CurrentLocation;
 import com.jct.bd.gettexidriver.model.backend.IDB_Backend;
 import com.jct.bd.gettexidriver.model.entities.Driver;
 import com.jct.bd.gettexidriver.model.entities.Ride;
@@ -23,12 +23,12 @@ import java.util.List;
  * add drive to firebase and get two list of rides and drivers
  * and also alot of funcs on the list that return more specific lists
  * the output on the screen.
- * @author  David Elkayam
+ * @author  David Elkayam and Nath Ascoli
  * @version 1.0
  * @since   2019-01-23
  */
 public class FireBase_DB_manager implements IDB_Backend {
-    public CurentLocation location;
+    public CurrentLocation location;
     public List<Ride> rides = new ArrayList<>();
     public List<Driver> drivers = new ArrayList<>();
     private static ChildEventListener rideRefChildEventListener;

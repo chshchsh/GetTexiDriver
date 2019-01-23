@@ -5,7 +5,6 @@ import android.content.ContentProviderResult;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.net.Uri;
-import android.os.Build;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 
 import com.jct.bd.gettexidriver.R;
 import com.jct.bd.gettexidriver.controller.fragments.FinishedRidesFragment;
-import com.jct.bd.gettexidriver.model.backend.CurentLocation;
+import com.jct.bd.gettexidriver.model.backend.CurrentLocation;
 import com.jct.bd.gettexidriver.model.entities.Ride;
 
 import java.util.ArrayList;
@@ -110,7 +109,7 @@ public class ListViewAdapter extends BaseAdapter {
                 ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
                         .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, rawContactInsertIndex)
                         .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                        .withValue(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, CurentLocation.getPlace(ride.getStartLocation()))
+                        .withValue(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, CurrentLocation.getPlace(ride.getStartLocation()))
                         .withValue(ContactsContract.CommonDataKinds.StructuredPostal.TYPE, ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK)
                         .build());
                 // SAVE CONTACT IN BCR Structure
