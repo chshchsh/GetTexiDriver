@@ -66,11 +66,7 @@ public class availableRiedsFragment extends Fragment {
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {
-                rideArrayList = obj;
-                for (Ride ride : rideArrayList) {
-                    if (ride.getDrive() != TypeOfDrive.AVAILABLE)
-                        rideArrayList.remove(ride);
-                }
+                rideArrayList = FactoryBackend.getInstance().availableRides(obj);
                     listAdapter = new ExpandableListAdapter(context, rideArrayList, driverName);
                     lv.setAdapter(listAdapter);
                     listAdapter.notifyDataSetChanged();

@@ -26,7 +26,7 @@ import java.util.Locale;
 import static com.jct.bd.gettexidriver.controller.fragments.availableRiedsFragment.listAdapter;
 
 public class CurentLocation {
-    Context context;
+    static Context context;
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
     LocationManager locationManager;
@@ -95,9 +95,8 @@ public class CurentLocation {
             }
         }
     }
-
     //this func get location and convert it to name of location
-    public static String getPlace(Location location, Context context) {
+    public static String getPlace(Location location) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         List<Address> addresses = null;
         try {

@@ -26,7 +26,6 @@ import com.jct.bd.gettexidriver.controller.fragments.FinishedRidesFragment;
 import com.jct.bd.gettexidriver.controller.fragments.HomeFragment;
 import com.jct.bd.gettexidriver.controller.fragments.availableRiedsFragment;
 import com.jct.bd.gettexidriver.controller.fragments.progressRidesFragment;
-import com.jct.bd.gettexidriver.model.backend.CurentLocation;
 import com.jct.bd.gettexidriver.model.backend.FactoryBackend;
 import com.jct.bd.gettexidriver.model.datasource.NotifyDataChange;
 import com.jct.bd.gettexidriver.model.entities.Driver;
@@ -92,22 +91,27 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.Home:
                         HomeFragment homeFragment = new HomeFragment();
                         loadFragment(homeFragment);
+                        break;
                     case R.id.availableRides:
                         availableRiedsFragment availableRiedsFragment = new availableRiedsFragment();
                         availableRiedsFragment.getIntance(driverName);
                         loadFragment(availableRiedsFragment);
+                        break;
                     case R.id.progressRides:
                         progressRidesFragment progressRidesFragment = new progressRidesFragment();
                         progressRidesFragment.getIntance(driverName);
                         loadFragment(progressRidesFragment);
+                        break;
                     case R.id.finishRides:
                         FinishedRidesFragment finishedRidesFragment = new FinishedRidesFragment();
                         finishedRidesFragment.getIntance(driverName);
                         loadFragment(finishedRidesFragment);
+                        break;
                     case R.id.signOut:
                         Toast.makeText(getApplicationContext(), R.string.goodbye,Toast.LENGTH_LONG).show();
                         startActivity(new Intent(MainActivity.this,LoginActivity.class));
                         finish();
+                        break;
                 }
                 dl.closeDrawer(GravityCompat.START);
                 getSupportActionBar().setTitle(R.string.close);

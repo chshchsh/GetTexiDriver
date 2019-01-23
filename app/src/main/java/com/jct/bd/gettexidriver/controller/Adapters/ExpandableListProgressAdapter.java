@@ -94,7 +94,7 @@ public class ExpandableListProgressAdapter extends BaseExpandableListAdapter imp
             viewHolder = (ExpandableListProgressAdapter.ViewHolder) convertView.getTag();
         }
         // Populate the data into the template view using the data object
-        viewHolder.destination.setText(location.getPlace(ride.getEndLocation(),context));
+        viewHolder.destination.setText(location.getPlace(ride.getEndLocation()));
         float distance = (ride.getStartLocation().distanceTo(location.locationA));
         distance /= 100;
         int temp = (int)(distance);
@@ -122,7 +122,7 @@ public class ExpandableListProgressAdapter extends BaseExpandableListAdapter imp
         }else {
             viewHolder2 = (ViewHolder2) convertView.getTag();
         }
-        viewHolder2.source.setText(location.getPlace(ride.getStartLocation(),context));
+        viewHolder2.source.setText(location.getPlace(ride.getStartLocation()));
         viewHolder2.idNumber.setText(ride.getId());
         viewHolder2.full_name.setText(ride.getName());
         viewHolder2.finishButton.setOnClickListener(new View.OnClickListener() {

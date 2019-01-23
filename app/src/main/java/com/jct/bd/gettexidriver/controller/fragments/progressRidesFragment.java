@@ -66,17 +66,11 @@ public class progressRidesFragment extends Fragment {
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {
-                rideArrayList = obj;
-                for (Ride ride : rideArrayList) {
-                    if (ride.getDrive() != TypeOfDrive.PROGRESS)
-                        rideArrayList.remove(ride);
-                }
-                if (rideArrayList.size() != 0) {
+                rideArrayList = FactoryBackend.getInstance().progressRides(obj);
                     listAdapter = new ExpandableListProgressAdapter(context, rideArrayList, driverName);
                     lv.setAdapter(listAdapter);
-                }
-            }
 
+            }
             @Override
             public void onFailure(Exception exception) {
 

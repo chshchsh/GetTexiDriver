@@ -36,11 +36,7 @@ public class FinishedRidesFragment extends Fragment {
         FactoryBackend.getInstance().notifyToRideList(new NotifyDataChange<List<Ride>>() {
             @Override
             public void OnDataChanged(List<Ride> obj) {
-                for (Ride ride : obj) {
-                    if (!driverName.equals(ride.getDriverName()))
-                        obj.remove(ride);
-                }
-                FinishRides = obj;
+                FinishRides = FactoryBackend.getInstance().finishedRides(obj);
                 if (FinishRides.size() != 0) {
                     listViewAdapter = new ListViewAdapter(context);
                     finishRides.setAdapter(listViewAdapter);
